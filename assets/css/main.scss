@@ -1,0 +1,88 @@
+---
+---
+
+// 0-SETTINGS
+@import "0-settings/global";
+@import "0-settings/colors";
+
+// 1-TOOLS
+@import "1-tools/normalize";
+@import "1-tools/reset";
+@import "1-tools/shared";
+@import "1-tools/syntax-highlighting";
+@import "1-tools/mixins";
+@import "1-tools/grid";
+
+// 2-BASE
+@import "2-base/base";
+
+// 3-MODULES
+@import "3-modules/buttons";
+@import "3-modules/pagination";
+@import "3-modules/footer";
+
+// 4-LAYOUTS
+@import "4-layouts/home";
+@import "4-layouts/post";
+@import "4-layouts/page";
+@import "4-layouts/tags";
+
+// 5-TRUMPS
+@import "5-trumps/helpers";
+
+// added
+pre.highlight {
+    padding: 8px 12px;
+    position: relative;
+  
+    // override skeleton styles
+    > code {
+      border: 0;
+      overflow-x: auto;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  
+    &.highlight {
+      overflow: auto;
+      white-space: pre;
+      word-wrap: normal;
+	  border-radius: 4px;
+  
+      &,
+      code {
+        background-color: #263238;
+        font-size: 14px;
+      }
+    }
+  
+    // copy code to clipboard
+    .copy {
+      color: #0a0a0a;
+      position: absolute;
+      right: 1.2rem;
+      top: 0.8rem;
+      opacity: 0;
+	  border-style: outset;
+	  border-color: silver;
+	  border-radius: 4px;
+	  padding-right: 10px;
+      padding-left: 10px;
+	  padding-top: 3px;
+      padding-bottom: 3px;
+  
+      &:active,
+      &:focus,
+      &:hover {
+        background: #ffffff;
+        opacity: 1;
+      }
+    }
+  
+    &:active .copy,
+    &:focus .copy,
+    &:hover .copy {
+      background: #ffffff;
+      opacity: 1;
+    }
+  } 

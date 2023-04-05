@@ -1,0 +1,54 @@
+// Main Colors
+$primary-color: #1ABC9C;
+$secondary-color: #C19CD8;
+$highlight: #ffeea8;
+$text: #f6f6f6;
+$gray-blue: #707890;
+$white: #ffffff;
+$light-white: #e7e7e7;
+$black: #101010;
+$lighten-black: #323743;
+$blue-black: #2C2F36;
+$blue-darken: #232427;
+$green-darken: #2C3635;
+$danger: #e02f40;
+$success: #34a74e;
+
+
+// Background Colors
+$background: $blue-black;
+
+// Body Color
+$body-color: $text;
+
+// Headings
+$heading-font-color: #404040;
+
+// Links
+$link-color: $primary-color;
+$link-color-hover: lighten($link-color, 15%);
+
+// Button
+$button-color: $white;
+$button-background-color: $primary-color;
+
+// Border
+$border-color: #3E4250;
+
+/* syntax highlighting (base16) */
+$base00: #263238 !default;
+$base01: #2e3c43 !default;
+$base02: #314549 !default;
+$base03: #546e7a !default;
+$base04: #b2ccd6 !default;
+$base05: #eeffff !default;
+$base06: #eeffff !default;
+$base07: #ffffff !default;
+$base08: #f07178 !default;
+$base09: #f78c6c !default;
+$base0a: #ffcb6b !default;
+$base0b: #c3e88d !default;
+$base0c: #89ddff !default;
+$base0d: #82aaff !default;
+$base0e: #c792ea !default;
+$base0f: #ff5370 !default;

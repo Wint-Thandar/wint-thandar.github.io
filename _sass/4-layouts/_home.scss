@@ -1,0 +1,347 @@
+// Header
+.header {
+  margin-bottom: 50px;
+  background: $black;
+  padding: 40px 0 0;
+}
+
+.header-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: $light-white;
+}
+
+.header-avatar {
+  display: block;
+  margin: auto;
+  border-radius: 100%;
+  width: 100px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 4px solid $white;
+
+  @media only screen and (min-width: 768px) {
+    width: 200px;
+    margin-bottom: 60px;
+  }
+
+  &:hover {
+    @include scale(1.05);
+  }
+}
+
+.header-title {
+  font-family: "Futura Md BT",sans-serif;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 1;
+  text-align: right;
+
+  @media only screen and (min-width: 768px)  {
+    font-size: 32px;
+  }
+
+  @media only screen and (min-width: 1220px)  {
+    font-size: 40px;
+  }
+}
+
+.header-subtitle{
+  font-family: "Futura Md BT",sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  text-align: right;
+  border-bottom: 4px solid $light-white;
+  margin-bottom: 20px;
+
+  @media only screen and (min-width: 768px)  {
+    font-size: 32px;
+  }
+
+  @media only screen and (min-width: 1220px)  {
+    font-size: 40px;
+  }
+}
+
+.menu-links {
+  .list-reset {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 60px;
+    .item{
+      list-style: none;
+      .item-link{
+        color: $light-white;
+        font-size: 18px;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+.header-tagline {
+  margin-top: 10px;
+  font-family: $base-font-family;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.5;
+
+  @media only screen and (min-width: 768px)  {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+   @media only screen and (min-width: 1220px) {
+    font-size: 18px;
+  }
+}
+
+// Articles
+.article-first {
+  margin-bottom: 30px;
+  background: $black;
+  .article-image-first {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 450px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: $black;
+    box-shadow: 0 9px 18px 0 rgba(0, 0, 0, .25);
+    &:before {
+      content: "";
+      display: table;
+      padding-top: 50%;
+    }
+  }
+  .article-content-first {
+    padding: 20px;
+    color: $text;
+    .article-tag {
+      .tag {
+        font-size: 12px;
+      }
+    }
+    .article-date {
+      .date {
+        font-size: 12px;
+        color: rgba($text, .8);
+      }
+    }
+    .article-title {
+      margin-bottom: 20px;
+      font-size: 30px;
+      line-height: 30px;
+      font-weight: normal;
+      a {
+        color: $text;
+        transition: $global-transition;
+      }
+    }
+    .article-excerpt {
+      max-width: 450px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      line-height: 23px;
+    }
+    .button {
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid rgba(201, 211, 231, 50);
+      color: $text;
+      transition: $global-transition;
+      &:hover {
+        border: 1px solid $primary-color;
+        background: $primary-color;
+        color: $white;
+      }
+    }
+  }
+}
+
+.article {
+  display: flex;
+  margin-bottom: 25px;
+  .article-box {
+    padding-bottom: 20px;
+    border-bottom: 2px solid $border-color;
+  }
+  .article-head {
+    background: $black;
+  }
+  .article-image {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: $black;
+    box-shadow: 0 9px 18px 0 rgba(0, 0, 0, .25);
+    &:before {
+      content: "";
+      display: table;
+      padding-top: 75%;
+    }
+  }
+  .article-content {
+    .article-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+      .article-date {
+        font-size: 12px;
+        color: rgba($text, .8);
+      }
+      .article-tag {
+        .tag {
+          display: inline-block;
+          padding: 2px 5px;
+          margin-right: 5px;
+          font-size: 12px;
+          line-height: 18px;
+          font-weight: bold;
+          border: 1px solid $primary-color;
+          border-radius: $global-radius;
+          text-transform: capitalize;
+          color: $primary-color;
+          transition: $global-transition;
+          &:last-child {
+            margin-right: 0;
+          }
+          &:hover {
+            background: $primary-color;
+            color: $white;
+          }
+        }
+      }
+    }
+    .article-title {
+      margin-bottom: 5px;
+      a {
+        font-size: 24px;
+        color: $text;
+      }
+    }
+    .article-excerpt {
+      margin-bottom: 0;
+      font-size: 15px;
+      line-height: 25px;
+      color: $light-white;
+    }
+  }
+}
+
+.article-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.article-first .article-image-first, .article-box .article-image {
+  position: relative;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.6, 0.3, 0, 1);
+}
+
+.article-first.reveal-in .article-image-first, .article-box.reveal-in .article-image {
+  opacity: 1;
+}
+
+
+
+// Media
+@media only screen and (min-width: 576px) {
+  .article-first {
+    .article-content-first {
+      .article-title {
+        font-size: 45px;
+        line-height: 45px;
+      }
+      .article-excerpt {
+        margin-bottom: 50px;
+      }
+    }
+  }
+
+  .menu-list {
+    .menu-link {
+      font-size: 50px;
+      line-height: 80px;
+      &:before {
+        height: 8px;
+      }
+    }
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  .article-first {
+    .article-content-first {
+      padding: 60px 40px 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+// Header
+.header {
+  padding: 20px 0 0;
+  margin-bottom: 30px;
+}
+
+.header-box {
+  flex-flow: wrap;
+}
+
+.header-box hr{
+  width: 100%;
+  background-color: transparent;
+  margin: 0;
+}
+
+.wd-mob{
+  width: 100%;
+}
+
+.header-avatar {
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.header-title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.header-subtitle{
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 2px solid #e7e7e7;
+}
+.menu-links {
+  .list-reset {
+  margin-top: 20px;
+    .item{
+      list-style: none;
+      width: calc(100% / 2);
+    }
+  }
+}
+
+
+}
+

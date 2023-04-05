@@ -1,0 +1,37 @@
+<header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col col-12">
+				<div class="header-box">
+					<div class="col col-3 wd-mob">
+						{% if site.avatar_image %}
+						<a href="{{ "/" | relative_url }}" class="header-avatar">
+							<img src="{{ site.avatar_image | relative_url }}" class="header-avatar-img" alt="{{ site.title }}">
+						</a>
+						{% endif %}
+					</div>
+					<hr>
+					<div class="col col-9 wd-mob">
+						{% if site.title %}
+						<h1 class="header-title">{{ site.title }}</h1>
+						{% endif %}
+						{% if site.subtitle %}
+						<h1 class="header-subtitle">{{ site.subtitle }}</h1>
+						{% endif %}
+						{% if site.description %}
+						<p class="header-tagline">{{ site.description }}</p>
+						{% endif %}
+						<div class="menu-links">
+							<ul class="list-reset">
+								{% if site.location %}<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> {{ site.location }}</a></li>{% endif %}
+								{% if site.github %}<li class="item"><a class="item-link" href="{{ site.github }}"><i class="ion ion-logo-github"></i> Github</a></li>{% endif %}
+								{% if site.linkedln %}<li class="item"><a class="item-link" href="{{ site.linkedln }}"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>{% endif %}
+								{% if site.resume_url %}<li class="item"><a class="item-link" href="{{ site.resume_url }}"><i class="ion ion-ios-document"></i> Resume</a></li>{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> <!-- /.header -->

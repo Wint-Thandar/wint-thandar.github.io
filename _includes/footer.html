@@ -1,0 +1,26 @@
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="footer-top">
+                    <h2 class="logo-title">
+                        <a href="{{ "/" | relative_url }}" class="logo-text">{{ site.title }}</a>
+                    </h2>
+                    <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>&copy; {{site.time | date: '%Y'}} {{ site.title }} Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a></p>
+                    </div>
+                    <div class="footer-social">
+                        <ul class="list-reset">
+                            {% if site.github %}<li><a href="{{ site.github }}"><i class="ion ion-logo-github"></i> Github</a></li>{% endif %}
+                            {% if site.linkedln %}<li><a href="{{ site.linkedln }}"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>{% endif %}
+                            <li><a href="{{ "/feed.xml" | relative_url }}"><i class="ion ion-logo-rss"></i> Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> <!-- /.footer -->

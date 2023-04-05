@@ -1,0 +1,54 @@
+#-------------------------------
+# General Site Settings
+title: Wint Thandar Oo
+description: "Hi, I'm Wint! I'm looking for a role in data.  My portfolio focuses on the course projects I am currently taking. I will be adding more projects in the future. Please visit my Github & LinkedIn pages or download my resume using the links."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+#-------------------------------
+# About Section
+subtitle: Data Profession <span style="color:#f58506"> Portfolio </span>
+location: "Yangon, Myanmar"
+resume_url: /docs/Wint%20Thanar%20Oo%20Resume%202022.docx
+avatar_image: img/profile_picture.jpg
+
+#-------------------------------
+# Contact links
+linkedln: "https://www.linkedin.com/in/wintthandaroo/" # Add your linkedln handle
+github: "https://github.com/Wint-Thandar"  # Add your github handle
+
+#-------------------------------
+# Build settings
+markdown: kramdown
+permalink: ':title/'
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+
+paginate: 6
+paginate_path: "/page/:num"
+locale: en
+
+sass:
+  sass_dir: _sass
+  style: compressed # possible values: nested expanded compact compressed
+
+defaults:
+  - scope:
+      type: posts
+      values:
+      layout: post
+      read_time: true
+      share: true
+
+
+#-------------------------------
+# Exclude from processing.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
