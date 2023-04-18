@@ -732,9 +732,8 @@ start_time <- proc.time()
 print(proc.time() - start_time)
 ```
 <br>
-
+Now, we can run the script. After the script is executed completely, we will see the printed messages in the console as follow.
 ```
-
 >>> [1] "Successfully downloaded 1059163 records in 124 files."
 >>> [1] "File created with name earthquakes-data.csv"
 >>> [1] "There is no missing date."
@@ -798,5 +797,5 @@ leaflet(df_cleaned) %>%
 <br>
 ## 4. Create Reporting Dashboards using Tableau
 The following Reporting Dashboards are created in Tableau Public. I will create another post on detailed steps taken to develop these dashboards. 
-<iframe seamless frameborder="0" src="[https://public.tableau.com/shared/WGGXG8DGG?:embed=yes&:display_count=yes&:showVizHome=no](https://public.tableau.com/shared/WGGXG8DGG?:embed=yes&:display_count=yes&:showVizHome=no)" width = '1090' height = '900'></iframe>
+<iframe seamless frameborder="0" src="https://public.tableau.com/shared/5CS2DX3JY?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>
 <br>
