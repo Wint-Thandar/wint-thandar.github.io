@@ -8,8 +8,8 @@ tags: [Python, Primes]
 ## Project Purpose
 The purpose of this project is to create a function in Python that can quickly find all the prime numbers below a given value.<br><br>
 
-## Git Hub Repository Link
-<https://github.com/Wint-Thandar/python-projects/tree/main/find-prime-numbers><br><br>
+## Git Hub Repository Link.
+The source code for this project can be found at my [GitHub Repository](https://github.com/Wint-Thandar/python-projects/tree/main/find-prime-numbers)<br><br>
 
 
 In this function, `set` data type is used to store a collection of data, and to search prime numbers within 2 and the given argument `num`.
