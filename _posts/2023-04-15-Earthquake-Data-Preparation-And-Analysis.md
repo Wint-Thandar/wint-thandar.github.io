@@ -1,23 +1,19 @@
 ---
 layout: post
 title: Earthquake Data Preparation & Analysis
+date: 2023-04-15 
 image: "/posts/earthquake-analysis.png"
 tags: [R, Data Collection, Data Preparation, Data Manipulation, Data Analysis]
 ---
 
 ## Project Purpose
 The purpose of this project is to collect, explore, and transform data using R programming language, to make it ready for creating reporting dashboards in Tableau.<br><br>
-**TOC** 
-{:toc}
-<br>
-
 ## GitHub Repository Link
 The source code for this project can be found at my [GitHub Repository](https://github.com/Wint-Thandar/r-projects/tree/main/earthquake_data_download)<br><br>
 ## Data Source 
-The earthquake data for this project is collected from the USGS Earthquake Hazards Program website. There are multiple ways to collect data from their website. They have search catalog, web service API, and wrapper libraries for a few programming languages. The search result limit is 20,000 records.  For this project, I wanted to collect the data from January 2013 to April 2023, so using either web service API or wrapper library would be a suitable choice. <br>
+The earthquake data for this project is collected from the USGS Earthquake Hazards Program website. There are multiple ways to collect data from their website. They have search catalog, web service API, and wrapper libraries for a few programming languages. The search result limit is 20,000 records.  For this project, I want to collect the data from January 2013 to April 2023, so using either web service API or wrapper library would be a suitable choice. <br>
 
-I decided to use the web service API linked below, and used `count` and `query` methods to check records count and to download earthquake data.
-[Web Service API Documentation – Earthquake Catalog: ](https://earthquake.usgs.gov/fdsnws/event/1/)<br>
+I am going to use the [Web Service API](https://earthquake.usgs.gov/fdsnws/event/1/), and use `count` and `query` methods to check records count and to download earthquake data.<br>
 
 If anyone is interested, below are the alternative ways to collect data.
 - The data can manually be searched and downloaded by using the [Search Earthquake Catalog](https://earthquake.usgs.gov/earthquakes/search/) webpage.
@@ -30,32 +26,32 @@ The variables and their data types, typical values and descriptions are document
 [ANSS Comprehensive Earthquake Catalog (ComCat) Documentation.](https://earthquake.usgs.gov/data/comcat/#event-terms) The full comprehensive documentation can be found [here.](https://earthquake.usgs.gov/data/comcat/)<br><br>
 
 ## 1. Initial Data Exploration
-To understand the data better before writing the script, we will start by exploring the data using the R console. 
+To understand the data better before writing the script, we will start by exploring the data using the R console. <br>
 
-### 1. Check the total records to be downloaded
-Since the purpose is to download the data from 2013 to 2023, it's better to check how many records in total that would be. We can use the `count` function of web service API to get that number. First, we need to load the package `httr` to use HTTP verbs. Then, we can use `GET()` function to get response of a given URL and `content()` function to get the number. In the URL, `starttime`, `endtime` and `minmagnitued` are user-defined parameters. `starttime` is set as 2013-01-0100:00:00, `endtime` is set as 2023-05-1623:59:59 and `minmagnitued` is set as 1. The `starttime` and `endtime` use `yyyy-mm-ddhh:mm:ss` format.
+### 1.1 Check the total records to be downloaded
+Since the purpose is to download the data from 2013 to 2023, it's better to check how many records in total that would be. We use the `count` method of web service API to get that number. First, we need to load the package `httr` to use HTTP verbs. Then, we use `GET()` function to get response of a given URL and `content()` function to get the number. In the URL, `starttime`, `endtime` and `minmagnitued` are user-defined parameters. `starttime` is set as 2013-01-0100:00:00, `endtime` is set as 2023-05-1623:59:59 and `minmagnitued` is set as 1. The `starttime` and `endtime` use `yyyy-mm-ddhh:mm:ss` format.
 ```r
 library(httr)
 content(GET("https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=2013-01-0100:00:00&endtime=2023-05-1623:59:59&minmagnitude=1"))
 ```
 
-The return value – 1,059,129, is the total number of records to be downloaded. The download limit is 20,000 records per file, so we will need to separate the data to download into multiple files.
+The returned value – 1,059,129, is the total number of records to be downloaded. The download limit is 20,000 records per file, so we will need to separate the data to download into multiple files.
 ```
 [1] "1059129"
 ```
-
-To get the idea of how many records a month could have, we can pick a random month, January 2019, and call the API.
+<br>
+To get the idea of how many records a month could have, we pick a random month, January 2019, and call the API.
 ```r
 content(GET("https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=2019-01-0100:00:00&endtime=2019-01-3123:59:59&minmagnitude=1"))
 ```
 
-The return value – 7,963, is the total number of records to be downloaded for January 2019. In this case, the records count is within the 20,000 result limit. So, we will most likely be able to download the files per month. 
+The returned value – 7,963, is the total number of records to be downloaded for January 2019. In this case, the records count is within the 20,000 result limit. So, we will most likely be able to download the files per month. 
 ```
 [1] "7963"
 ```
-
-### 2. Download sample data 
-After checking the records count, we should start checking the data to get the idea of what kind of data we are dealing with. For this, we can download a small portion of data and explore it. To download the data in a CSV file format, we can use `download.file()` function. The URL of the `query` function of web service API along with `starttime`, `endtime` and `minmagnitued` parameters, destination file name and extension, and the download method are given as arguments.
+<br>
+### 1.2 Download sample data 
+After checking the records count, we should start checking the data to get the idea of what kind of data we are dealing with. For this, we can download a small portion of data and explore it. To download the data in a CSV file format, we use `download.file()` function. The URL of the `query` method of web service API along with `starttime`, `endtime` and `minmagnitued` parameters, destination file name and extension, and the download method are given as arguments.
 ```r
 download.file("https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2019-01-0100:00:00&endtime=2019-01-3123:59:59&minmagnitude=1", destfile = "sample_data.csv", method = "curl")
 ```
@@ -66,9 +62,9 @@ The data is downloaded in the CSV file format. The download information is displ
                                  Dload  Upload   Total   Spent    Left  Speed
 100 1393k    0 1393k    0     0   694k      0 --:--:--  0:00:02 --:--:--  695k
 ```
-
-### 3. Explore sample data  
-Now that we have downloaded the file, we can start reading the data. To do that, we can use `read_csv()` function of `readr` package and give the file name as an argument. 
+<br>
+### 1.3 Explore sample data  
+Now that we have downloaded the file, we can start reading the data. To do that, we use `read_csv()` function of `readr` package and give the file name as an argument. 
 ```r
 library(readr)
 sample_data <- read_csv("sample_data.csv")
@@ -86,13 +82,13 @@ dttm  (2): time, updated
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
-
+<br>
 To see the full specification with some data, I prefer to use `str()` function. It compactly displays the internal structure of an R object. So, we can view most of the information neatly. 
 ```r
 str(sample_data)
 ```
 
-We can easily see that there are `NAs` in some columns, the `place` column has both the approximate location and country information, and that some columns such as `locationSource` and `magSource` will not be necessary for our reporting dashboard.
+We can easily see that there are `NA` values in some columns, the `place` column has both the approximate location and country information, and that some columns such as `locationSource` and `magSource` will not be necessary for our reporting dashboard.
 ```
 spc_tbl_ [7,963 × 22] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ time           : POSIXct[1:7963], format: "2019-01-31 23:53:56" "2019-01-31 23:36:43" "2019-01-31 23:26:59" "2019-01-31 23:14:45" ...
@@ -144,8 +140,8 @@ spc_tbl_ [7,963 × 22] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
   .. )
  - attr(*, "problems")=<externalptr>
 ```
-
-After `str()`, I use `summary()` function to see the summary statistics. It helps to understand the data better as well as see the total number of `NA` values in each column.
+<br>
+After `str()`, I use `summary()` function to see the summary statistics. It helps to understand the numerical data better, as well as see the total number of `NA` values in each column.
 ```r
 summary(sample_data)
 ```
@@ -212,7 +208,7 @@ summary(sample_data)
  Class :character   Class :character   Class :character  
  Mode  :character   Mode  :character   Mode  :character
 ```
-
+<br>
 Another way to view only the `NA` values count is to use `is.na()` function together with `colSums()` function. 
 ```r
 colSums(is.na(sample_data))
@@ -232,8 +228,8 @@ colSums(is.na(sample_data))
  locationSource       magSource 
               0               0
 ```
-
-Now that we have got a good overview of our data, we should also check if there are any duplicated rows. We can use `duplicated()` function for this purpose.
+<br>
+Now that we have got a good overview of our data, we should also check if there are any duplicated rows. We use `duplicated()` function for this purpose.
 ```r
 sample_data[duplicated(sample_data),]
 ```
@@ -246,114 +242,17 @@ Since we have a `tibble` with 0 rows (observations), it means that we don't have
 #   magSource <chr>
 # ℹ Use `colnames()` to see all variable names
 ```
-
-### 4. Data Manipulation
-Now that we have explored our data structure, we can start the data manipulation. First, we are dropping the columns that we have no interest in. The `select()` function of `dplyr` package can be used to select or drop the columns. Here, I have selected the columns to drop as a character vector. Since we want to drop the columns, `-` is keyword is used. 
-```r
-library(dplyr)
-sample_data <- select(sample_data, -c(nst, gap, dmin, rms, net, updated, horizontalError, depthError, magError, magNst, status, locationSource, magSource))
-```
-
-To check the remaining columns, we can use `colnames()` function.
-```r
-colnames(sample_data)
-```
-
-We can see that 9 columns remain. 
-```
-[1] "time"      "latitude"  "longitude" "depth"     "mag"      
-[6] "magType"   "id"        "place"     "type"
-```
-
-Check if there is any `NA` value in remaining columns.
-```r
-colSums(is.na(sample_data))
-```
-
-```
-     time  latitude longitude     depth       mag   magType        id 
-        0         0         0         0         0         0         0 
-    place      type 
-        0         0
-```
-
-
-### 5. Exploratory Analysis
-
-```r
-boxplot(sample_data$mag,
-        main = "Box Plot for Earthquake Magnitudes",
-        xlab = "Magnitude",
-        ylab = "Earthquake",
-        col = "orange",
-        border = "brown",
-        horizontal = TRUE
-)
-```
-
-![Boxplot for Earthquake Magnitude](/img/posts/boxplot-mag.png)
-
-```r
-boxplot(mag~week(time),
-        data=sample_data,
-        main="Different boxplots for each week",
-        xlab="Week Number",
-        ylab="Magnitude",
-        col="orange",
-        border="brown"
-)
-```
-
-![Boxplot for Earthquake Magnitude](/img/posts/boxplots-per-week.png)
-
-```r
-hist(sample_data$mag,
-     main="Histogram of Earthquake Magnitude",
-     xlab="Magnitude",
-     col="orange",
-     freq=TRUE
-)
-```
-
-![Histogram of Earthquake Magnitude](/img/posts/histogram-mag.png)
-
-
-```r
-plot(sample_data$depth, 
-	 sample_data$mag, 
-	 main="Earthquake Magnitude against Depth",
-     xlab="Depth", 
-     ylab="Magnitude"
-)
-```
-![Earthquake Magnitude against Depth](/img/posts/scatter-plot-mag-depth.png)
-
-```r
-library(leaflet)
-leaflet(sample_data) %>% 
-  addProviderTiles("Esri.WorldStreetMap") %>%
-  addCircles(
-    lng = ~longitude, 
-    lat = ~latitude, 
-    popup = paste0(sample_data$place, "<br>", sample_data$mag),
-    radius = sqrt(10^sample_data$mag) * 20, 
-    color = "red", 
-    fillColor = "red", 
-    fillOpacity = 0.25
-    )
-```
-
-![Earthquake Map](/img/posts/map-mag-lat-long.png)
+<br>
 
 ## 2. Collect, Explore and Transform data using R script 
-In this part of the project, R script is created to 
+In this part of the project, R script is created to: 
 1. access web service API and query the data,
 2. download the result files, 
 3. merge the downloaded files, 
 4. explore and clean the merged data to make it ready for the reporting dashboard, and 
 5. create a CSV file with the final tidy data.
+<br>
 
-### 1. Access web service API and query the data
 `httr`, `lubridate`, `readr`, `dplyr`, `tidyr`, and `stringr` packages are used to collect and manipulate data. The `GET()` function of `httr` package is used to access the web service API to get a response from the `count` function to query the total number of results. `readr` package is used to read csv file into a data frame. `lubridate` package is used to turn data into date data type and to manipulate dates. `dplyr`, `tidyr`, and `stringr` packages are used to manipulate and tidy data. 
 
 First, import necessary packages to use their functions. 
@@ -371,20 +270,20 @@ Set the working directory as the source file directory. So that when the files a
 setwd(getSrcDirectory(function(){})[1])
 ```
 
-The files are to be downloaded to a folder named 'EQData'. The `file_path` variable is declared so that it can be reused. If there is a need to change the download folder name, it can be edited here. 
+The files are to be downloaded to a folder named 'EQData'. The `file_path` variable is declared in a global environment so that it can be used from anywhere. If there is a need to change the download folder name, it can be edited here. 
 ```r
 file_path <- "./EQData"
 ```
 
-After the `file_path` is declared, we can check if the folder 'EQData' already existed or not by using `dir.exists()` function and giving `file_path` as an argument. Here, we only need to create a new folder if it does not exist. So, `!` keyword is used to check if the folder does not exist. If it does not, we create a new folder by using `dir.create()` function and giving `file_path` as an argument.
+After the `file_path` is declared, we check if the folder 'EQData' already existed or not by using `dir.exists()` function and giving `file_path` as an argument. Here, we only need to create a new folder if it does not exist. So, `!` keyword is used to check if the folder does not exist. If it does not, we create a new folder by using `dir.create()` function and giving `file_path` as an argument.
 ```r
 # Check if the folder exists, if not, create one.
 if (!dir.exists(file_path)) {
   dir.create(file_path)
 }
 ```
-
-To query the data using the web service API, we need to pass `start date` and `end date` parameters. We need to make sure that the data passed are in date data type, and that the end date is not earlier than the start date. We can write a function to validate the dates and stop the script if a validation failed. The first validation used `is.Date()` function from `lubridate` package, together with `!` keyword, to check if either of the `startDate` and `endDate` arguments are not in `date` data type. If either one are not in `date` data type, we need the script to stop running and show an error message. To achieve that, we can use `stop()` function execution with an appropriate error message. For the second validation, we just need to check if the `endDate` is earlier than the `startDate`. Then, use `stop()` function again with an appropriate error message.
+<br>
+To query the data using the web service API, we need to pass `start date` and `end date` parameters. We need to make sure that the data passed are in date data type, and that the end date is not earlier than the start date. The `ValidateDates()` function validates the dates and stops the script if a validation failed. The first validation used `is.Date()` function from `lubridate` package, together with `!` keyword, to check if either of the `startDate` and `endDate` arguments are not in `date` data type. If either one are not in `date` data type, we need the script to stop running and show an error message. To achieve that, we use `stop()` function execution with an appropriate error message. For the second validation, we just need to check if the `endDate` is earlier than the `startDate`. Then, use `stop()` function again with an appropriate error message. This function can be called whenever we need to validate the start date and the end date.
 ```r
 ValidateDates <- function(startDate, endDate) {
   # Validates the start and end date range arguments and shows stop message if 
@@ -397,7 +296,7 @@ ValidateDates <- function(startDate, endDate) {
   #    endDate (Date): End Date parameter of the query. 
   #
   # Returns: 
-  #    No returns. 
+  #    No return value. 
 
   # Check if the given arguments are not valid dates.
   if (!is.Date(startDate) | !is.Date(endDate)) {
@@ -410,8 +309,8 @@ ValidateDates <- function(startDate, endDate) {
   }
 }
 ```
-
-
+<br>
+Before we download the records, we need to make sure that the records count to download does not exceed 20,000 records. We can call the `count` method of web service API to get the total number of records. We will be checking the records count every time we download a file for each month. Below function will first validate the `startDate` and `endDate` arguments by calling `ValidateDates()` function. Then, the API URL of `count` method is concatenated and called using the given arguments. From the response, we get the number of records by using `content()` function. Since the response returned is in `character` data type, `as.integer()` function is used to change it to `integer` data type and return the value.
 ```r
 CheckRecordsCount <- function(startDate, endDate) {
   # Queries the record count to be downloaded for the given date arguments. 
@@ -431,7 +330,7 @@ CheckRecordsCount <- function(startDate, endDate) {
       paste0(
         "https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=",
         startDate,
-        "&endtime=",
+        "00:00:00&endtime=",
         endDate,
         "23:59:59",
         "&minmagnitude=1"
@@ -441,7 +340,8 @@ CheckRecordsCount <- function(startDate, endDate) {
   return(total_records)
 }
 ```
-
+<br>
+For the files to be downloaded, the file names should be in a format that is easy to keep track of. We will be using the file name format as  `text_yyyy_mmm.extension`, "**earthquake_data_2013_Jan.csv**". So, following function gets the `fileDate` and `fileExtension` arguments and concatenate them together with `file_path` variable to get a file name. The file name is returned as a character value.
 ```r
 SetFileName <- function(fileDate, fileExtension) {
   # Sets a file name to be saved as for the file to download. 
@@ -466,9 +366,10 @@ SetFileName <- function(fileDate, fileExtension) {
   return(file_name)
 }
 ```
-
+<br>
+The `DownloadFile()` function gets the `startDate`, `endDate`, and `fileName` arguments and downloads the query results. Before downloading the file, `ValidateDates()` function is called to validate the given dates. Then, the API URL of `query` method is concatenated using the given arguments. After concatenating the URL, we use `download.file()` function to download a CSV file by passing the API URL, given file name, and download method. A CSV file will be downloaded to the destination folder.
 ```r
-Download <- function(startDate, endDate, fileName) {
+DownloadFile <- function(startDate, endDate, fileName) {
   # Downloads the query results as a csv file using the query URL. 
   # 
   # Args: 
@@ -478,7 +379,7 @@ Download <- function(startDate, endDate, fileName) {
   #              extension.
   #
   # Returns: 
-  #    The total number of records. Integer data type. 
+  #    No return value. 
   
   # Validate date arguments.
   ValidateDates(startDate, endDate)
@@ -487,7 +388,7 @@ Download <- function(startDate, endDate, fileName) {
     paste0(
       "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=",
       startDate,
-      "&endtime=",
+      "00:00:00&endtime=",
       endDate,
       "23:59:59",
       "&minmagnitude=1"
@@ -495,9 +396,20 @@ Download <- function(startDate, endDate, fileName) {
   download.file(file_url, destfile = fileName, method = "curl")
 }
 ```
+<br>
+The `DownloadFile()` function above downloads a file, usually for a particular month, while the `DownloadAll()` function below prepares and processes the download of all files for all the months between the given `startDate` and `endDate` arguments. The `startDate` and the `endDate` arguments set the date range that needs to be downloaded. First, `ValidateDates()` function is called to validate the given date arguments. To download for all the months between the given `startDate` and `endDate`, the `while()` loop is used together with a stop flag variable to iterate for the file download of each month, until the `endDate` is reached. 
 
+For the file download, the result records limit is 20,000 per download. So, for easier tracking, the file is downloaded per month using iteration. If per month still exceeds 20,000 records, the records for that month are separated into three files. 10 days each for the first two files and the remaining days in the last file. Separating the data into three files helps us ensure that the result limit will not be exceeded. So, to download the files for each month, we need to use a date range for that particular month. We cannot use `startDate` and `endDate` arguments. The `curr_start_date` and the `curr_end_date` variables are used to set the start date and the end date of the current month to download. For the first download, `curr_start_date` is set with the value of `startDate` argument, and the `curr_end_date` is set by using the `ceiling_date()` function of `lubridate` package to get the last day of the month. The `curr_end_date` variable is then validated against `endDate` to ensure that it is not later than the `endDate`. If it is, the `curr_end_date` variable is set with the value of `endDate`, and the `last_dl` flag is set as `TRUE`. By reaching the `endDate`, the download is done, and the next iteration will be stopped. If the `endDate` is not reached yet, the iteration will continue, and in the next iteration, a day is added to the `curr_end_date` variable and set it as the value of the `curr_start_date` variable. That way, we will download the file for the next month and the iteration will continue until the `endDate` is reached.
+
+After the values of the `curr_start_date` and the `curr_end_date` are defined, we call the `CheckRecordsCount()` function with the `curr_start_date` and the `curr_end_date` as arguments. Then, we validate if the `records_to_dl` value is more than 20,000 records. If it is more than the limit, we separate the date range into 10 days each in the first two files and the remaining days in the last file. The `file_ext` variable is used to concatenate "-1", "-2",  or "-3" before the given `fileExtension` value. The `SetFileName()` function is called with the arguments `curr_start_date` and `file_ext`, then, set the returned file name value to the `file_name` variable. After setting the file name, we call `DownloadFile()` function. The arguments given to the function varied for each file.
+- For the first file, to download the first 10 days, we start the date range from the `curr_start_date` and add 9 days to get the end date. So, the arguments given are: `curr_start_date`, `curr_start_date + days(9)`, and `file_name`.
+- For the second file, to download the next 10 days, we start the date range from the day 11 to the day 20. So, the arguments given are: `curr_start_date + days(10)`, `curr_start_date + days(19)`, and `file_name`.
+- For the last file, to download the last remaining days, we start the date range from the day 21 to the last day of the month. So, the arguments given are: `curr_start_date + days(20)`, `curr_end_date`, and `file_name`.
+For the months with less than 20,000 results, we call `DownloadFile()` function with the arguments `curr_start_date`, `curr_end_date` and `file_name`. Then, we add the number of records downloaded to the `downloaded_records` variable, to keep track of the total downloaded records. The iteration count `itr_count` variable is also incremented to record the total number of iterations.
+
+Lastly, we return the download successful message, including the total number of downloaded records and the number of iterations. 
 ```r
-DownloadFiles <- function(startDate, endDate, fileExtension) {
+DownloadAll <- function(startDate, endDate, fileExtension) {
   # Prepares to download csv files per month using the given date arguments. 
   # 
   # Args: 
@@ -526,7 +438,7 @@ DownloadFiles <- function(startDate, endDate, fileExtension) {
   # For the file download, the result records limit is 20,000 per download.
   # So, for easier tracking, the file is downloaded per month using iteration.
   # If per month still exceeds 20,000 records, the records for that month are 
-  # separated in three files. 10 days each for the first two files and the 
+  # separated into three files download. 10 days each for the first two files and the 
   # remaining days in the last file.
   while (last_dl == FALSE) {  # iterate until the flag is set as TRUE.
     # The logic for setting curr_start_date is to check the iteration count.
@@ -561,28 +473,28 @@ DownloadFiles <- function(startDate, endDate, fileExtension) {
       file_name <- SetFileName(curr_start_date, file_ext)
       
       # Download the first 10 days.
-      Download(curr_start_date, curr_start_date + days(9), file_name)
+      DownloadFile(curr_start_date, curr_start_date + days(9), file_name)
       
       # Set file name of the 2nd file to be saved as. 
       file_ext <- paste0("-2", fileExtension)
       file_name <- SetFileName(curr_start_date, file_ext)
       
       # Download another 10 days.
-      Download(curr_start_date + days(10), curr_start_date + days(19), file_name)
+      DownloadFile(curr_start_date + days(10), curr_start_date + days(19), file_name)
       
       # Set file name of the last file to be saved as. 
       file_ext <- paste0("-3", fileExtension)
       file_name <- SetFileName(curr_start_date, file_ext)
       
       # Download the remaining days.
-      Download(curr_start_date + days(20), curr_end_date, file_name)
+      DownloadFile(curr_start_date + days(20), curr_end_date, file_name)
       
     } else {
       # Set file name of the last file to be saved as. 
       file_name <- SetFileName(curr_start_date, fileExtension)
       
       # Download the file for the month.
-      Download(curr_start_date, curr_end_date, file_name)
+      DownloadFile(curr_start_date, curr_end_date, file_name)
     }
     # Increment the downloaded records.
     downloaded_records <- downloaded_records + records_to_dl
@@ -602,7 +514,8 @@ DownloadFiles <- function(startDate, endDate, fileExtension) {
   )
 }
 ```
-
+<br>
+After all the files are downloaded, we can start with the file merge. The `MergeFiles()` function uses the pipe function `%>%` from `dplyr` package to chain a few functions in a series. First, the `list.files()` function is used to list all the files in the given directory, which is the value of global variable `file_path`. Then, the `lapply()` function is used to apply `read_csv()` function to all the files. The `bind_rows()` function is applied last to bind the records of the all the files read. The merged data frame is returned.
 ```r
 MergeFiles <- function() {
   # Reads all the files in the given directory and bind them by rows. 
@@ -620,7 +533,8 @@ MergeFiles <- function() {
   return(eqk_data)
 }
 ```
-
+<br>
+We now have a merged data frame with all the records. Referring to the sample data we explored in section [1.3 Explore sample data](### 1.3 Explore sample data), we can now start cleaning the data. The `RemoveDuplicates()` function removes all the duplicated rows if exist. Most functions used here are from the `dplyr` package. The pipe function `%>%` is used to apply the `group_by_all()` function to group the records. Then, the `filter()` function used to filter the groups with more than 1 records (i.e. duplicated rows). The `ungroup()` function is applied last to ungroup the data. So, we get duplicated rows in a data frame. The `nrow()` function is used to check if there is any record. If there is, the `distinct()` function is used to filter only the unique records. The unique data frame is then returned. The advantage of checking the duplicated records this way is that we have the data frame of duplicated records if we want to view the data. Otherwise, we can skip everything and just use the line `df <- distinct(df)` to get the unique records.
 ```r
 RemoveDuplicates <- function(df) {
   # Removes all the duplicated rows. 
@@ -645,10 +559,11 @@ RemoveDuplicates <- function(df) {
   return(df)
 }
 ```
-
+<br>
+The `CheckMissingDates()` function checks and returns all the missing dates from the data frame, within the range of given date arguments. First, we convert the `time` column as date data type using `as.Date()` function. Then, we generate a list of all dates between the given `startDate` and `endDate` arguments using `seq()` function. After that, we filter the dates from the `all_dates` which are not in the given data frame argument. They are the missing dates in the given data frame and the result is returned.
 ```r
 CheckMissingDates <- function(df, startDate, endDate) {
-  # Prints all the missing dates from the data frame between the start date and
+  # Returns all the missing dates from the data frame between the start date and
   # the end date. If there is a missing date, it is most likely that the
   # downloaded files were incomplete.  
   # 
@@ -672,7 +587,8 @@ CheckMissingDates <- function(df, startDate, endDate) {
   return(missing_dates)
 }
 ```
-
+<br>
+The `SeparateLocationColumn()` function separates `place` column into two columns, `Location Detail` and `Location`. When exploring the sample data, we saw that the `place` column contains the approximate location and the country name separated by commas. We only need the country name information. The country name is after the last comma. So, we need to make sure that we use the last comma as a separator to get the country names only. We use `separate()` function from `tidyr` package to separate the column. A regular expression- `,(?=[^,]*$)` is used to match the last comma as a separator. To understand the regular expression, test it out at [RegExr](https://regexr.com/) website. The data frame with separated columns is returned.
 ```r
 SeparateLocationColumn <- function(df) {
   # Separates 'place' column into two columns: 'Location Detail' and 'Location'.
@@ -695,7 +611,8 @@ SeparateLocationColumn <- function(df) {
   return(df_separated)
 }
 ```
-
+<br>
+The `CleanData()` function cleans the `Location` column by trimming extra spaces and setting title case. It also drops the records with NA in location, latitude, longitude columns, and replaces the US States abbreviations with names. The functions from `tidyr`, `stringr`, and `dplyr` packages are used. The cleaned data frame is returned.
 ```r
 CleanData <- function(df) {
   # Cleans the Location column by trimming extra spaces and setting title case.
@@ -742,23 +659,12 @@ CleanData <- function(df) {
                              "\\bWa\\b" = "Washington",
                              "\\bWy\\b" = "Wyoming"))
     ) %>%
-    drop(Nst) %>%
-    drop(Gap) %>%
-    drop(Dmin) %>%
-    drop(Rms) %>%
-    drop(Net) %>%
-    drop(Updated) %>%
-    drop('Location Detail') %>%
-    drop('Horizontal Error') %>%
-    drop('Depth Error') %>%
-    drop('Mag Error') %>%
-    drop('Mag Nst') %>%
-    drop('Status') %>%
-    drop('Location Source') %>%
-    drop('Mag Source') %>%
     drop_na(latitude) %>% # Drop records with latitude as NA
     drop_na(longitude) %>% # Drop records with longitude as NA
     drop_na(Location) # Drop records with Location as NA
+  
+  # Drop unnecessary columns
+  df_cleaned <- select(df_cleaned, -c(nst, gap, dmin, rms, net, updated, horizontalError, depthError, magError, magNst, status, locationSource, magSource, 'Location Detail'))
   
   # Get all locations with abbreviations. 
   # df_abbr <- df_cleaned$Location[nchar(as.character(df_cleaned$Location)) < 4]
@@ -769,7 +675,8 @@ CleanData <- function(df) {
   return(df_cleaned)
 }
 ```
-
+<br>
+Now that we have a cleaned tidy data, we can create a CSV file. The `CreateCSV()` function creates a CSV file using the `write.csv()` function. The file created message is returned.
 ```r
 CreateCSV <- function(df) {
   # Creates a csv file with the merged and cleaned data.
@@ -784,7 +691,8 @@ CreateCSV <- function(df) {
   return("File created with name earthquakes-data.csv")
 }
 ```
-
+<br>
+We have finished writing the functions and we can start calling them with the appropriate arguments. First, `start_date`, `end_date`, and `file_extension` variables are defined. The `end_date` variable is set as today date using `Sys.Date()` function. After setting the variables, we call the functions one by one and pass appropriate arguments. Then, we print the file download message, the file create message, and the missing dates message, so that we can see them in the console.
 ```r
 # Set start date and end date of the search query. Use yyyy-mm-dd date format.
 start_date <- as_date("2013-01-01")
@@ -812,7 +720,8 @@ if (length(missing_dates) > 0) {
   print("There is no missing date.")
 }
 ```
-
+<br>
+Before we run the script, we can add timer to record the time it takes to run the script, including the file downloads. We just need to add the line `start_time <- proc.time()` at the start of the script and the line `print(proc.time() - start_time)` at the end of the script. 
 ```r
 # Set start time to time the running of the whole script. proc_time data type.
 start_time <- proc.time()
@@ -822,16 +731,72 @@ start_time <- proc.time()
 # Time the running of the whole script. End time.
 print(proc.time() - start_time)
 ```
+<br>
 
 ```
 
->>> [1] "Successfully downloaded 1054028 records in 123 files."
+>>> [1] "Successfully downloaded 1059163 records in 124 files."
 >>> [1] "File created with name earthquakes-data.csv"
->>>    user  system elapsed 
->>>  161.11   13.41  925.02 
+>>> [1] "There is no missing date."
+>>>    user  system elapsed
+>>>  173.70   24.68 1303.02
 ```
 <br>
 <br>
+## 3. Data Exploration
+Now that we have a tidy data, we can create a few plots such as boxplot, scatterplot and interactive map to understand the data better.  
+```r
+boxplot(df_cleaned$mag,
+        main = "Boxplot of Earthquake Magnitudes",
+        xlab = "Magnitude",
+        ylab = "Earthquake",
+        col = "orange",
+        border = "brown",
+        horizontal = TRUE
+)
 ```
+![Boxplot of Earthquake Magnitudes](/img/posts/boxplot-mag.png)
 
+```r
+boxplot(mag~year(time),
+        data=df_cleaned,
+        main="Different Boxplots of Each Year",
+        xlab="Year",
+        ylab="Magnitude",
+        col="orange",
+        border="brown"
+)
 ```
+![Different Boxplots of Each Year](/img/posts/boxplot-yearly.png)
+
+```r
+plot(df_cleaned$depth, 
+     df_cleaned$mag, 
+     main="Earthquake Magnitude Against Depth",
+     xlab="Depth", 
+     ylab="Magnitude"
+)
+```
+![Earthquake Magnitude Against Depth](/img/posts/scatterplot-all-years.png)
+
+```r
+library(leaflet)
+leaflet(df_cleaned) %>% 
+    addProviderTiles("Esri.WorldStreetMap") %>%
+    addCircles(
+        lng = ~longitude, 
+        lat = ~latitude, 
+        popup = paste0(df_cleaned$Location, "<br>", df_cleaned$mag),
+        radius = sqrt(10^df_cleaned$mag) * 20, 
+        color = "red", 
+        fillColor = "red", 
+        fillOpacity = 0.25
+    )
+```
+![Earthquakes Interactive Map](/img/posts/leaflet-map.png)
+
+<br>
+## 4. Create Reporting Dashboards using Tableau
+The following Reporting Dashboards are created in Tableau Public. I will create another post on detailed steps taken to develop these dashboards. 
+<iframe seamless frameborder="0" src="[https://public.tableau.com/shared/WGGXG8DGG?:embed=yes&:display_count=yes&:showVizHome=no](https://public.tableau.com/shared/WGGXG8DGG?:embed=yes&:display_count=yes&:showVizHome=no)" width = '1090' height = '900'></iframe>
+<br>
