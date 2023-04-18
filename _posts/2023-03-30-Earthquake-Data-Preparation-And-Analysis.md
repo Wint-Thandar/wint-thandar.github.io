@@ -291,7 +291,7 @@ boxplot(sample_data$mag,
 )
 ```
 
-![Boxplot for Earthquake Magnitude](/posts/boxplot-mag.png)
+![Boxplot for Earthquake Magnitude](/img/posts/boxplot-mag.png)
 
 ```r
 boxplot(mag~week(time),
@@ -304,7 +304,7 @@ boxplot(mag~week(time),
 )
 ```
 
-![Boxplot for Earthquake Magnitude](/posts/boxplots-per-week.png)
+![Boxplot for Earthquake Magnitude](/img/posts/boxplots-per-week.png)
 
 ```r
 hist(sample_data$mag,
@@ -315,7 +315,7 @@ hist(sample_data$mag,
 )
 ```
 
-![Histogram of Earthquake Magnitude](/posts/histogram-mag.png)
+![Histogram of Earthquake Magnitude](/img/posts/histogram-mag.png)
 
 
 ```r
@@ -326,7 +326,7 @@ plot(sample_data$depth,
      ylab="Magnitude"
 )
 ```
-![Earthquake Magnitude against Depth](./posts/scatter-plot-mag-depth.png)
+![Earthquake Magnitude against Depth](/img/posts/scatter-plot-mag-depth.png)
 
 ```r
 library(leaflet)
@@ -343,7 +343,7 @@ leaflet(sample_data) %>%
     )
 ```
 
-![Earthquake Magnitude against Depth](/posts/map-mag-lat-long.png)
+![Earthquake Map](/img/posts/map-mag-lat-long.png)
 
 ## 2. Collect, Explore and Transform data using R script 
 In this part of the project, R script is created to 
