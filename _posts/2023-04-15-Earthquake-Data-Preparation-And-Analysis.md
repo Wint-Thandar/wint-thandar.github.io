@@ -3,7 +3,7 @@ layout: post
 title: Earthquake Data Preparation & Analysis
 date: 2023-04-15 
 image: "/posts/earthquake-analysis.png"
-tags: [R, Data Collection, Data Preparation, Data Manipulation, Data Analysis]
+tags: [R, Data Collection, Data Preparation, Data Manipulation, Data Analysis, Tableau Public]
 ---
 
 ## Project Purpose
