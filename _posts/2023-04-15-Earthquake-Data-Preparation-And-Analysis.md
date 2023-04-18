@@ -797,5 +797,5 @@ leaflet(df_cleaned) %>%
 <br>
 ## 4. Create Reporting Dashboards using Tableau
 The following Reporting Dashboards are created in Tableau Public. I will create another post on detailed steps taken to develop these dashboards. 
-<iframe seamless frameborder="0" src="https://public.tableau.com/shared/5CS2DX3JY?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>
+<iframe seamless frameborder="0" src="https://public.tableau.com/views/Earthquakes_2013-2023_Dashboard/EarthquakesTrackerPage1?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>
 <br>
