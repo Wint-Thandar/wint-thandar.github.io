@@ -8,6 +8,9 @@ tags: [R, Data Collection, Data Preparation, Data Manipulation, Data Analysis, T
 
 ## Project Purpose
 The purpose of this project is to collect, explore, and transform data using R programming language, to make it ready for creating reporting dashboards in Tableau.<br><br>
+## Final Output
+A CSV file with **1,056,144** records and **9** columns of earthquakes data from January 2013 to April 2023 with magnitude 1 and above. 
+<br><br>
 ## GitHub Repository Link
 The source code for this project can be found at my [GitHub Repository](https://github.com/Wint-Thandar/r-projects/tree/main/earthquake_data_download)<br><br>
 ## Data Source 
@@ -688,8 +691,9 @@ CreateCSV <- function(df) {
   # Returns: 
   #    A file created message. 
   
-  write.csv(df, file = "./earthquakes-data.csv")
-  return("File created with name earthquakes-data.csv")
+  write.csv(df, file = "./earthquakes-data.csv", row.names=FALSE)
+  return(paste0("File created with name earthquakes-data.csv and contains ", 
+                nrow(df), " rows and ", ncol(df), " columns."))
 }
 ```
 <br>
@@ -733,13 +737,13 @@ start_time <- proc.time()
 print(proc.time() - start_time)
 ```
 <br>
-Now, we can run the script. After the script is executed completely, we will see the printed messages in the console as follow.
+Now, we can run the script. After the script is executed completely, we will see the printed messages in the console as follows. The downloaded data is **1,059,267** records in **124** files. After transformation the data, the tidy data contains **1,056,144** records and **9** columns. The user CPU time, which is charged for the execution of user instructions of the calling process, took 137.53 seconds (2.3 mins). The system CPU time, which is charged for execution by the system on behalf of the calling process, took 22.37 seconds (0.4 mins). The elapsed time, which is the actual elapsed time since the process was  started, took 797.80 seconds (13.3 mins).
 ```
->>> [1] "Successfully downloaded 1059163 records in 124 files."
->>> [1] "File created with name earthquakes-data.csv"
->>> [1] "There is no missing date."
->>>    user  system elapsed
->>>  173.70   24.68 1303.02
+[1] "Successfully downloaded 1059267 records in 124 files."
+[1] "File created with name earthquakes-data.csv and contains 1056144 rows and 9 columns."
+[1] "There is no missing date."
+   user  system elapsed 
+ 137.53   22.37  797.80
 ```
 <br>
 <br>
@@ -781,13 +785,17 @@ plot(df_cleaned$depth,
 
 ```r
 library(leaflet)
-leaflet(df_cleaned) %>% 
+
+# For efficiency, subset only the records of year 2022
+df <- df_cleaned[(df_cleaned$time >= "2022-01-01" & df_cleaned$time <= "2022-12-31"),]
+
+leaflet(df) %>% 
     addProviderTiles("Esri.WorldStreetMap") %>%
     addCircles(
         lng = ~longitude, 
         lat = ~latitude, 
-        popup = paste0(df_cleaned$Location, "<br>", df_cleaned$mag),
-        radius = sqrt(10^df_cleaned$mag) * 20, 
+        popup = paste0(df$Location, "<br>", df$mag),
+        radius = sqrt(10^df$mag) * 10, 
         color = "red", 
         fillColor = "red", 
         fillOpacity = 0.25
