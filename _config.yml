@@ -41,9 +41,6 @@ defaults:
       read_time: true
       share: true
 
-- name: Jekyll Actions
-  uses: helaili/jekyll-action@2.5.0
-
 #-------------------------------
 # TOC settings
 toc:
