@@ -259,7 +259,7 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
-  github-pages (~> 228)
+  github-pages
   http_parser.rb (~> 0.6.0)
   jekyll-feed (~> 0.12)
   jekyll-toc
@@ -270,4 +270,4 @@ DEPENDENCIES
   webrick (~> 1.8)
 
 BUNDLED WITH
-   2.4.10
+   2.4.12
