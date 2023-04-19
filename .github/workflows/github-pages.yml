@@ -18,4 +18,4 @@ jobs:
             ${{ runner.os }}-gems-
       - uses: helaili/jekyll-action@2.5.0    # Choose any one of the Jekyll Actions
         env:                                # Some relative inputs of your action
-          token: ${{ secrets.JEKYLL_PAT }} # token
+          GITHUB_TOKEN: ${{ secrets.JEKYLL_PAT }} # token
