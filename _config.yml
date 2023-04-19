@@ -1,7 +1,7 @@
 #-------------------------------
 # General Site Settings
 title: Wint Thandar Oo
-description: "Hi, I'm Wint! I'm looking for a role in data.  My portfolio focuses on the course projects I am currently taking. I will be adding more projects in the future. Please visit my Github & LinkedIn pages or download my resume using the links."
+description: "Hi, I'm Wint! I'm looking for a professional role in data career.  My portfolio focuses on the course projects I am currently taking, and the projects I have undertaken to apply the topics I learned. I will be adding more projects in the future. Please visit my Github & LinkedIn pages or download my resume using the links."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -9,7 +9,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # About Section
 subtitle: Data Profession <span style="color:#f58506"> Portfolio </span>
 location: "Yangon, Myanmar"
-resume_url: /docs/Wint%20Thanar%20Oo%20Resume%202023.docx
+resume_url: /docs/Wint%20Thandar%20Oo%20Resume%202023.docx
 avatar_image: img/profile_picture.jpg
 
 #-------------------------------
@@ -24,6 +24,7 @@ permalink: ':title/'
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-toc
 
 paginate: 6
 paginate_path: "/page/:num"
@@ -41,7 +42,15 @@ defaults:
       read_time: true
       share: true
 
-
+#-------------------------------
+# TOC settings
+toc:
+ min_level: 1
+ max_level: 3
+ list_class: toc
+ list_class: toc__list
+ sublist_class: toc__sublist
+ 
 #-------------------------------
 # Exclude from processing.
 # exclude:

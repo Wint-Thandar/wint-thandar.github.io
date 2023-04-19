@@ -30,7 +30,7 @@ layout: default
                     </div>
                 </div>
                 <div class="post-body">
-                    {{ content }}
+                    {{ content | toc }}
 
                     {% if page.share %}{% include social-share.html %}{% endif %}
 					

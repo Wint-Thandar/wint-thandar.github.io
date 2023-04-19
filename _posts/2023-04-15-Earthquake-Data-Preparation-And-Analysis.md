@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Earthquake Data Preparation & Analysis
-date: 2023-04-15 
+toc: true
 image: "/posts/earthquake-analysis.png"
 tags: [R, Data Collection, Data Preparation, Data Manipulation, Data Analysis, Tableau Public]
 ---
@@ -283,6 +283,7 @@ if (!dir.exists(file_path)) {
 }
 ```
 <br>
+
 To query the data using the web service API, we need to pass `start date` and `end date` parameters. We need to make sure that the data passed are in date data type, and that the end date is not earlier than the start date. The `ValidateDates()` function validates the dates and stops the script if a validation failed. The first validation used `is.Date()` function from `lubridate` package, together with `!` keyword, to check if either of the `startDate` and `endDate` arguments are not in `date` data type. If either one are not in `date` data type, we need the script to stop running and show an error message. To achieve that, we use `stop()` function execution with an appropriate error message. For the second validation, we just need to check if the `endDate` is earlier than the `startDate`. Then, use `stop()` function again with an appropriate error message. This function can be called whenever we need to validate the start date and the end date.
 ```r
 ValidateDates <- function(startDate, endDate) {
@@ -796,6 +797,6 @@ leaflet(df_cleaned) %>%
 
 <br>
 ## 4. Create Reporting Dashboards using Tableau
-The following Reporting Dashboards are created in Tableau Public. I will create another post on detailed steps taken to develop these dashboards. 
+The following Reporting Dashboards are created in Tableau Public. I created the dashboards with fixed width option, so you will need to scroll them horizontally to view everything if you are using a small screen devices such as a laptop. I will create another post on the detailed steps taken to develop these dashboards. 
 <iframe seamless frameborder="0" src="https://public.tableau.com/views/Earthquakes_2013-2023_Dashboard/EarthquakesTrackerPage1?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>
 <br>

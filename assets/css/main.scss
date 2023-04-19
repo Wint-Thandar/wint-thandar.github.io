@@ -1,6 +1,5 @@
 ---
 ---
-
 // 0-SETTINGS
 @import "0-settings/global";
 @import "0-settings/colors";
@@ -86,3 +85,38 @@ pre.highlight {
       opacity: 1;
     }
   } 
+  
+code.language-plaintext.highlighter-rouge {
+    background: darkslategrey;
+}
+ 
+ .toc__list:before {
+ content: "Table Of Contents";
+ font-weight: bold;
+ font-size: 1.5rem;
+}
+
+.toc__list {
+ border: 2px solid #eee;
+ border-radius: 4px;
+ line-height: 1.8rem;
+ padding: 1rem 1.5rem;
+ font-weight: 600;
+}
+
+.toc__sublist li {
+ padding-left: 1.25rem;
+}
+
+.toc-h2:first-child {
+ margin-top: 1rem;
+}  
+
+#toc a {
+ color: darkseagreen;
+ text-decoration: underline;
+}
+
+#toc a:hover {
+ color: #9D174D;
+}
