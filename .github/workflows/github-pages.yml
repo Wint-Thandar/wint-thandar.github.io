@@ -19,3 +19,5 @@ jobs:
       - uses: helaili/jekyll-action@2.0.5    # Choose any one of the Jekyll Actions
         with:                                # Some relative inputs of your action
           token: ${{ secrets.GH_TOKEN }}
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
