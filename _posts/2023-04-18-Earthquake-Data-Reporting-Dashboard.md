@@ -9,6 +9,15 @@ tags: [Tableau Public, Reporting Dashboard, Data Analysis]
 ## Project Purpose
 The purpose of this project is to create earthquake data reporting dashboards using the earthquake data CSV file created in [Earthquake Data Preparation & Analysis](https://wint-thandar.github.io/Earthquake-Data-Preparation-And-Analysis/) project.<br><br>
 
+## Data Source 
+The earthquake data for this project is collected from the USGS Earthquake Hazards Program website using the web service API. The detailed process of data collection and transformation is written in the [Earthquake Data Preparation & Analysis](https://wint-thandar.github.io/Earthquake-Data-Preparation-And-Analysis/) post. The tidy data file has **1,056,144** records and **9** columns of earthquakes data from January 2013 to April 2023 with magnitude 1 and above.<br>
+
+## Dataset Information 
+The USGS monitors and reports on earthquakes, assesses earthquake impacts and hazards, and conducts targeted research on the causes and effects of earthquakes.
+
+The variables and their data types, typical values and descriptions are documented at 
+[ANSS Comprehensive Earthquake Catalog (ComCat) Documentation.](https://earthquake.usgs.gov/data/comcat/#event-terms) The full comprehensive documentation can be found [here.](https://earthquake.usgs.gov/data/comcat/)<br><br>
+
 ## Final Output
 Earthquake data analysis dashboards created in Tableau Public server.
 <iframe seamless frameborder="0" src="https://public.tableau.com/views/Earthquakes_2013-2023_Dashboard/EarthquakesTrackerPage1?:embed=yes&:display_count=yes&:showVizHome=no" width = '1090' height = '900'></iframe>

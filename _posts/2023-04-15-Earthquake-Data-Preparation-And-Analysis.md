@@ -14,7 +14,7 @@ A CSV file with **1,056,144** records and **9** columns of earthquakes data from
 ## GitHub Repository Link
 The source code for this project can be found at my [GitHub Repository](https://github.com/Wint-Thandar/r-projects/tree/main/earthquake_data_download)<br><br>
 ## Data Source 
-The earthquake data for this project is collected from the USGS Earthquake Hazards Program website. There are multiple ways to collect data from their website. They have search catalog, web service API, and wrapper libraries for a few programming languages. The search result limit is 20,000 records.  For this project, I want to collect the data from January 2013 to April 2023, so using either web service API or wrapper library would be a suitable choice. <br>
+The earthquake data for this project is collected from the USGS Earthquake Hazards Program website. There are multiple ways to collect data from their website. They have search catalog, web service API, and wrapper libraries for a few programming languages. The search result limit is 20,000 records. For this project, I want to collect the data from January 2013 to April 2023, so using either web service API or wrapper library would be a suitable choice. <br>
 
 I am going to use the [Web Service API](https://earthquake.usgs.gov/fdsnws/event/1/), and use `count` and `query` methods to check records count and to download earthquake data.<br>
 
