@@ -29,9 +29,10 @@ The dataset information below is directly quoted from the UCI webpage.
 > - Triaxial Angular velocity from the gyroscope.<br>
 > - A 561-feature vector with time and frequency domain variables.<br>
 > - Its activity label.<br>
-> - An identifier of the subject who carried out the experiment."
->
+> - An identifier of the subject who carried out the experiment."<br><br>
 <br>
+<br>
+
 ## Data Manipulation
 The data transformation for this project is done in five steps.<br>
 **Step 1:** Merge the downloaded training and test data set files to create one data set.<br>
