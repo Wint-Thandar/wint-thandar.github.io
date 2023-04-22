@@ -33,7 +33,7 @@ The dataset information below is directly quoted from the UCI webpage.
 > - An identifier of the subject who carried out the experiment."
 
 <br>
-<br>
+
 
 ## Data Manipulation
 The data transformation for this project is done in five steps.<br>
