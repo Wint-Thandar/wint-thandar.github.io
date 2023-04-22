@@ -51,6 +51,10 @@ toc:
  sublist_class: toc__sublist
  
 #-------------------------------
+# Google Analytics settings
+ google_analytics: G-5Q5EYVF2FJ
+ 
+#-------------------------------
 # Exclude from processing.
 # exclude:
 #   - Gemfile
