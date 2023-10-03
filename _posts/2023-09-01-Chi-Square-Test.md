@@ -11,7 +11,7 @@ tags: [AB Testing, Hypothesis Testing, Chi-Square, Python]
 The purpose of this project is to demonstrate understanding of hypothesis testing using the Chi-Square Test for Independence to assess performance of two mailers promoting a new service.<br><br>
 
 ### GitHub Repository Link
-The source code and documentations for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/chi_square_test).<br><br>
+The source code and datasets for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/chi_square_test).<br><br>
 
 ### Context
 Earlier this year, a grocery retailer client ran a campaign promoting a new "Delivery Club" - a $100/year membership offering free grocery delivery instead of the normal $10 fee.<br><br>

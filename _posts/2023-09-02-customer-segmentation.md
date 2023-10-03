@@ -11,7 +11,7 @@ tags: [Customer Segmentation, Machine Learning, Clustering, Python]
 The purpose of this project is to segment up the customer base in order to increase business understanding, and to enhance the relevancy of targeted messaging & customer communications, using k-means clustering.<br><br>
 
 ### GitHub Repository Link
-The source code and documentations for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/unsupervised_kmeans_clustering).<br><br>
+The source code and datasets for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/unsupervised_kmeans_clustering).<br><br>
 
 ### Context 
 The Senior Management team from a supermarket chain client were disagreeing about how customers shopped and how lifestyle choices affected which food areas customers purchased from, or notably, did not purchase from.
@@ -102,6 +102,7 @@ After the data pre-processing using Pandas, we have a dataset for clustering tha
 | 5 | 0.213 | 0.250 | 0.430 | 0.107  |
 | 6 | 0.180 | 0.178 | 0.546 | 0.095  |
 | 7 | 0.000 | 0.517 | 0.000 | 0.483  |
+
 <br>
 
 The data is at customer level, and we have a column for each of the highest level food product areas.  Within each of those we have the *percentage* of sales that each customer allocated to that product area over the past six months.<br>
