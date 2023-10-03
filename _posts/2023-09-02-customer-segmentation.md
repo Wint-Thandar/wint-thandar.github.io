@@ -8,7 +8,7 @@ tags: [Customer Segmentation, Machine Learning, Clustering, Python]
 
 # Project Overview 
 ### Project Purpose
-The purpose of this project is to segment up the customer base in order to increase business understanding, and to enhance the relevancy of targeted messaging & customer communications, using k-means clustering.
+The purpose of this project is to segment up the customer base in order to increase business understanding, and to enhance the relevancy of targeted messaging & customer communications, using k-means clustering.<br><br>
 
 ### GitHub Repository Link
 The source code and documentations for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/unsupervised_kmeans_clustering).<br><br>
@@ -16,10 +16,7 @@ The source code and documentations for this project can be found at my [GitHub r
 ### Context 
 The Senior Management team from a supermarket chain client were disagreeing about how customers shopped and how lifestyle choices affected which food areas customers purchased from, or notably, did not purchase from.
 
-They asked a consulting firm to use data and Machine Learning to segment their customers based on engagement with each major food category. This would aid the client's understanding of their customer base and enhance the relevance of targeted messaging and customer communications.
-
-<br>
-<br>
+They asked a consulting firm to use data and Machine Learning to segment their customers based on engagement with each major food category. This would aid the client's understanding of their customer base and enhance the relevance of targeted messaging and customer communications.<br><br>
 
 ### Actions
 The first step is to compile the necessary data from several database tables, namely the `transactions` table and the `product_areas` table. The relevant information is joined together using `Pandas`, and the transactional data is aggregated across product areas, from the most recent six months to a customer level. The final data for clustering is, for each customer, the percentage of sales allocated to each product area. 
@@ -28,9 +25,7 @@ As a starting point, k-means clustering is tested and applied for this task. Som
 
 As k-means is an *unsupervised learning approach*, in other words there are no labels - a process known as *Within Cluster Sum of Squares (WCSS)* is used to understand what a "good" number of clusters or segments is. 
 
-Based on this, the k-means algorithm is applied onto the product area data, the clusters are appended to the customer base, and the resulting customer segments are profiled to understand the differentiating factors.
-<br>
-<br>
+Based on this, the k-means algorithm is applied onto the product area data, the clusters are appended to the customer base, and the resulting customer segments are profiled to understand the differentiating factors.<br><br>
 
 ### Results 
 Based on iterative testing using WCSS, a customer segmentation with 3 clusters is settled on. These clusters range in size, with Cluster 0 accounting for `73.6%` of the customer base, Cluster 2 accounting for `14.6%`, and Cluster 1 accounting for `11.8%`. 
@@ -43,22 +38,16 @@ For *Cluster 1* quite high proportions of spend are allocated to Fruit & Vegetab
 
 Finally customers in *Cluster 2* spend significant portions within Dairy, Fruit & Vegetables, but very little in the Meat product area - so similarly, an early hypothesis is that these customers are more along the lines of those following a vegetarian diet. 
 
-To help embed this segmentation into the business, "You Are What You Eat" has been proposed as a name for the segmentation.
-
-<br>
-<br>
+To help embed this segmentation into the business, "You Are What You Eat" has been proposed as a name for the segmentation.<br><br>
 
 ### Growth/Next Steps
 It would be interesting to run this clustering/segmentation at a lower level of product areas, so rather than just the four areas of Meat, Dairy, Fruit, Vegetables - clustering spend across the sub-categories *below* those categories. This would mean more specific clusters could be created, and an even more granular understanding of dietary preferences within the customer base could be obtained. 
 
 Here the focus has just been on variables directly linked to sales - it could be interesting to also include customer metrics such as distance to store, gender etc to give an even more well-rounded customer segmentation. 
 
-It would be useful to test other clustering approaches such as hierarchical clustering or DBSCAN to compare the results.
-<br>
-<br>
+It would be useful to test other clustering approaches such as hierarchical clustering or DBSCAN to compare the results.<br><br>
 
 ___
-
 # Data Overview 
 The primary focus is on identifying customer segments based on their transactions within the *food* based product areas, so only those will be selected.
 
@@ -70,9 +59,7 @@ The code below:
 * Drop the non-food categories
 * Aggregate the sales data for each product area, at customer level
 * Pivot the data to get it into the right format for clustering
-* Change the values from raw dollars, into a percentage of spend for each customer (to ensure each customer is comparable)
-
-<br>
+* Change the values from raw dollars, into a percentage of spend for each customer (to ensure each customer is comparable)<br>
 
 ```python
 # import required Python packages
@@ -105,9 +92,7 @@ data_for_clustering = transactions_summary_pivot.drop(['Total'], axis=1)
 ```
 <br>
 
-After the data pre-processing using Pandas, we have a dataset for clustering that looks like the below sample:
-<br>
-<br>
+After the data pre-processing using Pandas, we have a dataset for clustering that looks like the below sample:<br>
 
 | **customer_id** | **dairy** | **fruit** | **meat** | **vegetables** |
 |---|---|---|---|---|
@@ -117,14 +102,11 @@ After the data pre-processing using Pandas, we have a dataset for clustering tha
 | 5 | 0.213 | 0.250 | 0.430 | 0.107  |
 | 6 | 0.180 | 0.178 | 0.546 | 0.095  |
 | 7 | 0.000 | 0.517 | 0.000 | 0.483  |
-
 <br>
 
-The data is at customer level, and we have a column for each of the highest level food product areas.  Within each of those we have the *percentage* of sales that each customer allocated to that product area over the past six months.
+The data is at customer level, and we have a column for each of the highest level food product areas.  Within each of those we have the *percentage* of sales that each customer allocated to that product area over the past six months.<br>
 
 ___
-<br>
-
 # K-Means 
 
 ### Concept Overview
@@ -136,38 +118,31 @@ This similarity is most often the eucliedean (straight-line) distance between da
 
 The number of distinct groups (clusters) is determined by the value that is set for "k".
 
-The algorithm does this by iterating over four key steps, namely:
+The algorithm does this by iterating over four key steps, namely:<br>
 
 1. It selects "k" random points in space (these points are known as centroids)
 2. It then assigns each of the data points to the nearest centroid (based upon euclidean distance)
 3. It then repositions the centroids to the *mean* dimension values of it's cluster
 4. It then reassigns each data-point to the nearest centroid
 
-Steps 3 & 4 continue to iterate until no data-points are reassigned to a closer centroid.
-
-<br>
+Steps 3 & 4 continue to iterate until no data-points are reassigned to a closer centroid.<br><br>
 
 ### Data Preprocessing 
-There are three vital preprocessing steps for k-means, namely:
+There are three vital preprocessing steps for k-means, namely:<br>
 
 * Missing values in the data
 * The effect of outliers
-* Feature Scaling
-
-<br>
+* Feature Scaling<br><br>
 
 ##### Missing Values
 Missing values can cause issues for k-means, as the algorithm won't know where to plot those data-points along the dimension where the value is not present.  If we have observations with missing values, the most common options are to either remove the observations, or to use an imputer to fill-in or to estimate what those value might be.
 
-As we aggregated our data for each customer, we actually don't suffer from missing values so we don't need to deal with that here.
-
-<br>
+As we aggregated our data for each customer, we actually don't suffer from missing values so we don't need to deal with that here.<br><br>
 
 ##### Outliers
 As k-means is a distance based algorithm, outliers can cause problems. The main concern arises when scaling input variables, a very important step for a distance based algorithm.
 
-The goal is to prevent any variables from clustering together due to a single outlier value, which would make it difficult to compare their values to the other input variables. Rigorous investigation of outliers is always recommended. Fortunately, in this case involving percentages, this issue is not encountered.
-<br>
+The goal is to prevent any variables from clustering together due to a single outlier value, which would make it difficult to compare their values to the other input variables. Rigorous investigation of outliers is always recommended. Fortunately, in this case involving percentages, this issue is not encountered.<br><br>
 
 ##### Feature Scaling
 Again, as k-means is a distance based algorithm, meaning it relies on understanding how similar or different data points are across dimensions in n-dimensional space, the application of Feature Scaling is extremely important. 
@@ -229,17 +204,11 @@ plt.tight_layout()
 plt.show()
 ```
 <br>
-That code gives us the below plot - which visualises our results!
 
-<br>
+Above code gives us the below plot - which visualises our results.<br>
+![alt text](/img/posts/kmeans-optimal-k-value-plot.png "K-Means Optimal k Value Plot")<br>
 
-![alt text](/img/posts/kmeans-optimal-k-value-plot.png "K-Means Optimal k Value Plot")
-
-<br>
-
-Based upon the shape of the above plot - there does appear to be an elbow at `k = 3`.  Prior to that we see a significant drop in the WCSS score, but following the decreases are much smaller, meaning this could be a point that suggests adding *more clusters* will provide little extra benefit in terms of separating our data. A small number of clusters can be beneficial when considering how easy it is for the business to focus on, and understand, each - so we will continue on, and fit our k-means clustering solution with `k = 3`.
-
-<br>
+Based upon the shape of the above plot - there does appear to be an elbow at `k = 3`.  Prior to that we see a significant drop in the WCSS score, but following the decreases are much smaller, meaning this could be a point that suggests adding *more clusters* will provide little extra benefit in terms of separating our data. A small number of clusters can be beneficial when considering how easy it is for the business to focus on, and understand, each - so we will continue on, and fit our k-means clustering solution with `k = 3`.<br><br>
 
 ### Model Fitting 
 The below code will instantiate the k-means object using a value for `k` equal to `3`.  We then fit this object to our scaled dataset to separate our data into three distinct segments or clusters.
@@ -273,9 +242,7 @@ Once the data is separated into distinct clusters, the client needs to understan
 
 ##### Cluster Sizes
 
-In the below code the number of customers that fall into each cluster is assessed.
-
-<br>
+In the below code the number of customers that fall into each cluster is assessed.<br>
 
 ```python
 # check cluster sizes
@@ -289,21 +256,17 @@ Running that code shows us that the three clusters are different in size, with t
 * Cluster 2: **`14.6%`** of customers
 * Cluster 1: **`11.8%`** of customers
 
-Based on these results, there is a noticeable skew toward Cluster 0, with Cluster 1 and Cluster 2 being proportionally smaller. This isn't a matter of right or wrong; it simply reveals pockets within the customer base that exhibit different behaviors - and this is precisely what is desired.
-
-<br>
+Based on these results, there is a noticeable skew toward Cluster 0, with Cluster 1 and Cluster 2 being proportionally smaller. This isn't a matter of right or wrong; it simply reveals pockets within the customer base that exhibit different behaviors - and this is precisely what is desired.<br><br>
 
 ##### Cluster Attributes
-To understand what these different behaviors or characteristics are, we can analyze the attributes of each cluster in terms of the variables fed into the k-means algorithm.
-
-<br>
+To understand what these different behaviors or characteristics are, we can analyze the attributes of each cluster in terms of the variables fed into the k-means algorithm.<br>
 
 ```python
 # profile clusters (mean % sales for each product area)
 cluster_summary = data_for_clustering.groupby("cluster")[["Dairy","Fruit","Meat","Vegetables"]].mean().reset_index()
 ```
 <br>
-That code results in the following table...
+Above code results in the following table:
 
 | **Cluster** | **Dairy** | **Fruit** | **Meat** | **Vegetables** |
 |---|---|---|---|---|
@@ -316,17 +279,14 @@ For *Cluster 0* we see a reasonably significant portion of spend being allocated
 
 For *Cluster 1* we see quite high proportions of spend being allocated to Fruit & Vegetables, but very little to the Dairy & Meat product areas. It could be hypothesised that these customers are following a vegan diet. 
 
-Finally customers in *Cluster 2* spend, on average, significant portions within Dairy, Fruit & Vegetables, but very little in the Meat product area - so similarly, we would make an early hypothesis that these customers are more along the lines of those following a vegetarian diet.
+Finally customers in *Cluster 2* spend, on average, significant portions within Dairy, Fruit & Vegetables, but very little in the Meat product area - so similarly, we would make an early hypothesis that these customers are more along the lines of those following a vegetarian diet.<br><br>
 
 ___
-<br>
-
 # Application 
-
-Even tho this is a simple solution, based on high level product areas it will help leaders in the business, and category managers gain a clearer understanding of the customer base.
+Although this is a straightforward solution, the fact that it is based on high-level product sectors will aid category managers and business executives in better understanding the client base.
 
 Tracking these clusters over time would allow the client to more quickly react to dietary trends, and adjust their messaging and inventory accordingly.
 
-Based on these clusters, the client will be able to target customers more accurately - promoting products and discounts to customers that are truly relevant to them - overall enabling a more customer focused communication strategy.
+Based on these clusters, the client will be able to target customers more accurately - promoting products and discounts to customers that are truly relevant to them - overall enabling a more customer focused communication strategy.<br><br>
 
 
