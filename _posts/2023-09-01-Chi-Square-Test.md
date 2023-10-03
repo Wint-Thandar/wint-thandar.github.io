@@ -10,7 +10,7 @@ tags: [AB Testing, Hypothesis Testing, Chi-Square, Python]
 ### Project Purpose
 The purpose of this project is to demonstrate understanding of hypothesis testing using the Chi-Square Test for Independence to assess performance of two mailers promoting a new service.<br><br>
 
-## GitHub Repository Link
+### GitHub Repository Link
 The source code and documentations for this project can be found at my [GitHub repository](https://github.com/Wint-Thandar/python-projects/tree/main/chi_square_test).<br><br>
 
 ### Context
