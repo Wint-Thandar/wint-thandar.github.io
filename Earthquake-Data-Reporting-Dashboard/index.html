@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Earthquake Data Analysis Dashboards using Tableau</title>
+    <meta name="description" content="Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links." />
+    <link rel="canonical" href="/Earthquake-Data-Reporting-Dashboard/">
+    <link rel="alternate" type="application/rss+xml" title="Wint Thandar Oo" href="/feed.xml">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <!-- Ionicons -->
+    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5Q5EYVF2FJ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-5Q5EYVF2FJ');
+	</script>
+</head>
+
+<body>
+    <header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col col-12">
+				<div class="header-box">
+					<div class="col col-3 wd-mob">
+						
+						<a href="/" class="header-avatar">
+							<img src="/img/profile_picture.jpg" class="header-avatar-img" alt="Wint Thandar Oo">
+						</a>
+						
+					</div>
+					<hr>
+					<div class="col col-9 wd-mob">
+						
+						<h1 class="header-title">Wint Thandar Oo</h1>
+						
+						
+						<h1 class="header-subtitle">Professional <span style="color:#f58506"> Portfolio </span></h1>
+						
+						
+						<p class="header-tagline">Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links.</p>
+						
+						<div class="menu-links">
+							<ul class="list-reset">
+								<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> Yangon, Myanmar</a></li>
+								<li class="item"><a class="item-link" href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+								<li class="item"><a class="item-link" href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+								<li class="item"><a class="item-link" href="/docs/Wint%20Thandar%20Oo%20Resume%202023.docx"><i class="ion ion-ios-document"></i> Resume</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> <!-- /.header -->
+    <div class="container">
+    <div class="row">
+        <div class="col col-12">
+            <div class="post-image-box">
+                <div class="post-image" style="background-image: url(/img//posts/earthquake-dashboard.png)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <article class="col col-12 col-t-12 post">
+            <div class="post-content">
+                <div class="post-head">
+                    
+                    <div class="post-tag">
+                        
+                        <a href="/tags#Tableau Public" class="tag">Tableau Public</a>
+                        
+                        <a href="/tags#Reporting Dashboard" class="tag">Reporting Dashboard</a>
+                        
+                        <a href="/tags#Data Analysis" class="tag">Data Analysis</a>
+                        
+                    </div>
+                    
+                    <h1 class="post-title">Earthquake Data Analysis Dashboards using Tableau</h1>
+                    <div class="post-info">
+                        <div class="post-time">
+                            <span class="page__meta"><i class="ion ion-md-time"></i><span class="reading-time" title="Estimated read time">
+    
+    3 min read time
+</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <ul id="toc" class="toc__list">
+<li class="toc-entry toc-h2"><a href="#project-purpose">Project Purpose</a></li>
+<li class="toc-entry toc-h2"><a href="#data-source">Data Source</a></li>
+<li class="toc-entry toc-h2"><a href="#dataset-information">Dataset Information</a></li>
+<li class="toc-entry toc-h2"><a href="#final-output">Final Output</a></li>
+</ul><h2 id="project-purpose">
+<a class="anchor" href="#project-purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Purpose</h2>
+<p>The purpose of this project is to create earthquake data reporting dashboards using the earthquake data CSV file created in <a href="https://wint-thandar.github.io/Earthquake-Data-Preparation-And-Analysis/">Earthquake Data Preparation &amp; Analysis</a> project.<br><br></p>
+
+<h2 id="data-source">
+<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Source</h2>
+<p>The earthquake data for this project is collected from the USGS Earthquake Hazards Program website using the web service API. The detailed process of data collection and transformation is written in the <a href="https://wint-thandar.github.io/Earthquake-Data-Preparation-And-Analysis/">Earthquake Data Preparation &amp; Analysis</a> post. The tidy data file has <code class="language-plaintext highlighter-rouge">1,056,144 records</code> and <code class="language-plaintext highlighter-rouge">9 columns</code> of earthquakes data <code class="language-plaintext highlighter-rouge">from January 2013 to April 2023</code> with <code class="language-plaintext highlighter-rouge">magnitude 1 and above</code>.<br><br></p>
+
+<h2 id="dataset-information">
+<a class="anchor" href="#dataset-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset Information</h2>
+<p>The USGS monitors and reports on earthquakes, assesses earthquake impacts and hazards, and conducts targeted research on the causes and effects of earthquakes.</p>
+
+<p>The variables and their data types, typical values and descriptions are documented at 
+<a href="https://earthquake.usgs.gov/data/comcat/#event-terms">ANSS Comprehensive Earthquake Catalog (ComCat) Documentation.</a> The full comprehensive documentation can be found <a href="https://earthquake.usgs.gov/data/comcat/">here.</a><br><br></p>
+
+<h2 id="final-output">
+<a class="anchor" href="#final-output" aria-hidden="true"><span class="octicon octicon-link"></span></a>Final Output</h2>
+<p>Earthquake data analysis dashboards created in Tableau Public server.</p>
+<iframe seamless="" frameborder="0" src="https://public.tableau.com/views/Earthquakes_2013-2023_Dashboard/EarthquakesTrackerPage1?:embed=yes&amp;:display_count=yes&amp;:showVizHome=no" width="1090" height="900"></iframe>
+<p><br></p>
+
+<p>To view the data better, you can hide the filters by clicking the cross button. You can view the filters again by clicking on the same button. There are three dashboards created for data analysis, you can view each one by clicking on the respective tab. The filters are shared between all dashboards. So, the filtered values will be active for all the dashboards. The filter icon on the right side of the filter name can be used to clear the filter and show all the values. The down arrow icon on the right side of the filter icon can be used to select whether to include or exclude the selected data of that filter from the dashboard. 
+<img src="/img/posts/dashboard-live.png" alt="Earthquake Data Dashboard">
+<br></p>
+
+<p>At the bottom right of the dashboard, you can see a share icon and a download icon. Share button can be used to get a sharable link of the dashboard. Download button can be used to download the file as an image, PDF, or PowerPoint file. If viewing the embed dashboard is too small, you can click on the Tableau logo at the bottom left of the dashboard. That will open the dashboard in a new tab. The advantage of that is that you can use the full screen feature by clicking on the full screen icon at the bottom right of the dashboard.
+<img src="/img/posts/dashboard-live-2.png" alt="Earthquake Data Dashboard"></p>
+
+
+                    
+					
+					<script src="/assets/js/codebutton.js"></script>
+
+                </div>
+                
+                <div class="post-navigation">
+                    
+                    <a href="/Earthquake-Data-Preparation-And-Analysis/" class="prev">
+                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
+                    </a>
+                    
+                    
+                    <a href="/Chi-Square-Test/" class="next">
+                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </article> <!-- /.post -->
+    </div>
+</div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="footer-top">
+                    <h2 class="logo-title">
+                        <a href="/" class="logo-text">Wint Thandar Oo</a>
+                    </h2>
+                    <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>&copy; 2023 Wint Thandar Oo Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a></p>
+                    </div>
+                    <div class="footer-social">
+                        <ul class="list-reset">
+                            <li><a href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+                            <li><a href="/feed.xml"><i class="ion ion-logo-rss"></i> Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> <!-- /.footer -->
+    <!-- js here -->
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/jquery.waitforimages.min.js"></script>
+<script src="/assets/js/jquery.fitvids.js"></script>
+<script src="/assets/js/common.js"></script>
+</body>
+
+</html>

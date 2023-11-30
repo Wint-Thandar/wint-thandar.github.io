@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Earthquake Data Preparation &amp; Analysis</title>
+    <meta name="description" content="Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links." />
+    <link rel="canonical" href="/Earthquake-Data-Preparation-And-Analysis/">
+    <link rel="alternate" type="application/rss+xml" title="Wint Thandar Oo" href="/feed.xml">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <!-- Ionicons -->
+    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5Q5EYVF2FJ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-5Q5EYVF2FJ');
+	</script>
+</head>
+
+<body>
+    <header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col col-12">
+				<div class="header-box">
+					<div class="col col-3 wd-mob">
+						
+						<a href="/" class="header-avatar">
+							<img src="/img/profile_picture.jpg" class="header-avatar-img" alt="Wint Thandar Oo">
+						</a>
+						
+					</div>
+					<hr>
+					<div class="col col-9 wd-mob">
+						
+						<h1 class="header-title">Wint Thandar Oo</h1>
+						
+						
+						<h1 class="header-subtitle">Professional <span style="color:#f58506"> Portfolio </span></h1>
+						
+						
+						<p class="header-tagline">Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links.</p>
+						
+						<div class="menu-links">
+							<ul class="list-reset">
+								<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> Yangon, Myanmar</a></li>
+								<li class="item"><a class="item-link" href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+								<li class="item"><a class="item-link" href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+								<li class="item"><a class="item-link" href="/docs/Wint%20Thandar%20Oo%20Resume%202023.docx"><i class="ion ion-ios-document"></i> Resume</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> <!-- /.header -->
+    <div class="container">
+    <div class="row">
+        <div class="col col-12">
+            <div class="post-image-box">
+                <div class="post-image" style="background-image: url(/img//posts/earthquake-analysis.png)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <article class="col col-12 col-t-12 post">
+            <div class="post-content">
+                <div class="post-head">
+                    
+                    <div class="post-tag">
+                        
+                        <a href="/tags#R" class="tag">R</a>
+                        
+                        <a href="/tags#Data Collection" class="tag">Data Collection</a>
+                        
+                        <a href="/tags#Data Preparation" class="tag">Data Preparation</a>
+                        
+                        <a href="/tags#Data Manipulation" class="tag">Data Manipulation</a>
+                        
+                        <a href="/tags#Data Analysis" class="tag">Data Analysis</a>
+                        
+                        <a href="/tags#Tableau Public" class="tag">Tableau Public</a>
+                        
+                    </div>
+                    
+                    <h1 class="post-title">Earthquake Data Preparation &amp; Analysis</h1>
+                    <div class="post-info">
+                        <div class="post-time">
+                            <span class="page__meta"><i class="ion ion-md-time"></i><span class="reading-time" title="Estimated read time">
+    
+    33 min read time
+</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <ul id="toc" class="toc__list">
+<li class="toc-entry toc-h2"><a href="#project-purpose">Project Purpose</a></li>
+<li class="toc-entry toc-h2"><a href="#final-output">Final Output</a></li>
+<li class="toc-entry toc-h2"><a href="#github-repository-link">GitHub Repository Link</a></li>
+<li class="toc-entry toc-h2"><a href="#data-source">Data Source</a></li>
+<li class="toc-entry toc-h2"><a href="#dataset-information">Dataset Information</a></li>
+<li class="toc-entry toc-h2"><a href="#1-initial-data-exploration">1. Initial Data Exploration</a>
+<ul class="toc__sublist">
+<li class="toc-entry toc-h3"><a href="#11-check-the-total-records-to-be-downloaded">1.1 Check the total records to be downloaded</a></li>
+<li class="toc-entry toc-h3"><a href="#12-download-sample-data">1.2 Download sample data</a></li>
+<li class="toc-entry toc-h3"><a href="#13-explore-sample-data">1.3 Explore sample data</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2-collect-explore-and-transform-data-using-r-script">2. Collect, Explore and Transform data using R script</a></li>
+<li class="toc-entry toc-h2"><a href="#3-data-exploration">3. Data Exploration</a></li>
+<li class="toc-entry toc-h2"><a href="#4-create-reporting-dashboards-using-tableau">4. Create Reporting Dashboards using Tableau</a></li>
+</ul><h2 id="project-purpose">
+<a class="anchor" href="#project-purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Purpose</h2>
+<p>The purpose of this project is to collect, explore, and transform data using R programming language, to make it ready for creating reporting dashboards in Tableau.<br><br></p>
+<h2 id="final-output">
+<a class="anchor" href="#final-output" aria-hidden="true"><span class="octicon octicon-link"></span></a>Final Output</h2>
+<p>A CSV file with <strong>1,056,144</strong> records and <strong>9</strong> columns of earthquakes data from January 2013 to April 2023 with magnitude 1 and above. 
+<br><br></p>
+<h2 id="github-repository-link">
+<a class="anchor" href="#github-repository-link" aria-hidden="true"><span class="octicon octicon-link"></span></a>GitHub Repository Link</h2>
+<p>The source code for this project can be found at my <a href="https://github.com/Wint-Thandar/r-projects/tree/main/earthquake_data_download">GitHub Repository</a><br><br></p>
+<h2 id="data-source">
+<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Source</h2>
+<p>The earthquake data for this project is collected from the USGS Earthquake Hazards Program website. There are multiple ways to collect data from their website. They have search catalog, web service API, and wrapper libraries for a few programming languages. The search result limit is 20,000 records. For this project, I want to collect the data from January 2013 to April 2023, so using either web service API or wrapper library would be a suitable choice. <br></p>
+
+<p>I am going to use the <a href="https://earthquake.usgs.gov/fdsnws/event/1/">Web Service API</a>, and use <code class="language-plaintext highlighter-rouge">count</code> and <code class="language-plaintext highlighter-rouge">query</code> methods to check records count and to download earthquake data.<br></p>
+
+<p>If anyone is interested, below are the alternative ways to collect data.</p>
+<ul>
+  <li>The data can manually be searched and downloaded by using the <a href="https://earthquake.usgs.gov/earthquakes/search/">Search Earthquake Catalog</a> webpage.</li>
+  <li>They also have <a href="https://github.com/usgs/devcorner">ComCat Wrapper Libraries and Demonstration Code</a> for Python, R, and Matlab.<br><br>
+</li>
+</ul>
+
+<h2 id="dataset-information">
+<a class="anchor" href="#dataset-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset Information</h2>
+<p>The USGS monitors and reports on earthquakes, assesses earthquake impacts and hazards, and conducts targeted research on the causes and effects of earthquakes.</p>
+
+<p>The variables and their data types, typical values and descriptions are documented at 
+<a href="https://earthquake.usgs.gov/data/comcat/#event-terms">ANSS Comprehensive Earthquake Catalog (ComCat) Documentation.</a> The full comprehensive documentation can be found <a href="https://earthquake.usgs.gov/data/comcat/">here.</a><br><br></p>
+
+<h2 id="1-initial-data-exploration">
+<a class="anchor" href="#1-initial-data-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Initial Data Exploration</h2>
+<p>To understand the data better before writing the script, we will start by exploring the data using the R console. <br></p>
+
+<h3 id="11-check-the-total-records-to-be-downloaded">
+<a class="anchor" href="#11-check-the-total-records-to-be-downloaded" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.1 Check the total records to be downloaded</h3>
+<p>Since the purpose is to download the data from 2013 to 2023, it’s better to check how many records in total that would be. We use the <code class="language-plaintext highlighter-rouge">count</code> method of web service API to get that number. First, we need to load the package <code class="language-plaintext highlighter-rouge">httr</code> to use HTTP verbs. Then, we use <code class="language-plaintext highlighter-rouge">GET()</code> function to get response of a given URL and <code class="language-plaintext highlighter-rouge">content()</code> function to get the number. In the URL, <code class="language-plaintext highlighter-rouge">starttime</code>, <code class="language-plaintext highlighter-rouge">endtime</code> and <code class="language-plaintext highlighter-rouge">minmagnitued</code> are user-defined parameters. <code class="language-plaintext highlighter-rouge">starttime</code> is set as 2013-01-0100:00:00, <code class="language-plaintext highlighter-rouge">endtime</code> is set as 2023-05-1623:59:59 and <code class="language-plaintext highlighter-rouge">minmagnitued</code> is set as 1. The <code class="language-plaintext highlighter-rouge">starttime</code> and <code class="language-plaintext highlighter-rouge">endtime</code> use <code class="language-plaintext highlighter-rouge">yyyy-mm-ddhh:mm:ss</code> format.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">httr</span><span class="p">)</span><span class="w">
+</span><span class="n">content</span><span class="p">(</span><span class="n">GET</span><span class="p">(</span><span class="s2">"https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=2013-01-0100:00:00&amp;endtime=2023-05-1623:59:59&amp;minmagnitude=1"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The returned value – 1,059,129, is the total number of records to be downloaded. The download limit is 20,000 records per file, so we will need to separate the data to download into multiple files.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "1059129"
+</code></pre></div></div>
+<p><br>
+To get the idea of how many records a month could have, we pick a random month, January 2019, and call the API.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">content</span><span class="p">(</span><span class="n">GET</span><span class="p">(</span><span class="s2">"https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=2019-01-0100:00:00&amp;endtime=2019-01-3123:59:59&amp;minmagnitude=1"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The returned value – 7,963, is the total number of records to be downloaded for January 2019. In this case, the records count is within the 20,000 result limit. So, we will most likely be able to download the files per month.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "7963"
+</code></pre></div></div>
+<p><br></p>
+<h3 id="12-download-sample-data">
+<a class="anchor" href="#12-download-sample-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.2 Download sample data</h3>
+<p>After checking the records count, we should start checking the data to get the idea of what kind of data we are dealing with. For this, we can download a small portion of data and explore it. To download the data in a CSV file format, we use <code class="language-plaintext highlighter-rouge">download.file()</code> function. The URL of the <code class="language-plaintext highlighter-rouge">query</code> method of web service API along with <code class="language-plaintext highlighter-rouge">starttime</code>, <code class="language-plaintext highlighter-rouge">endtime</code> and <code class="language-plaintext highlighter-rouge">minmagnitued</code> parameters, destination file name and extension, and the download method are given as arguments.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">download.file</span><span class="p">(</span><span class="s2">"https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&amp;starttime=2019-01-0100:00:00&amp;endtime=2019-01-3123:59:59&amp;minmagnitude=1"</span><span class="p">,</span><span class="w"> </span><span class="n">destfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sample_data.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"curl"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The data is downloaded in the CSV file format. The download information is displayed in the console.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1393k    0 1393k    0     0   694k      0 --:--:--  0:00:02 --:--:--  695k
+</code></pre></div></div>
+<p><br></p>
+<h3 id="13-explore-sample-data">
+<a class="anchor" href="#13-explore-sample-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.3 Explore sample data</h3>
+<p>Now that we have downloaded the file, we can start reading the data. To do that, we use <code class="language-plaintext highlighter-rouge">read_csv()</code> function of <code class="language-plaintext highlighter-rouge">readr</code> package and give the file name as an argument.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">sample_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"sample_data.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">sample_data</code> data frame is created with the table format. The numbers of rows (observations) and columns (variables) created is displayed. In this case, 7,963 rows and 22 columns. Column specification is displayed as summary as well. Here, we can see the data type and the column names. There are 8 columns with <code class="language-plaintext highlighter-rouge">character</code> data type, 12 columns with <code class="language-plaintext highlighter-rouge">double</code> data type, and 2 columns with <code class="language-plaintext highlighter-rouge">datetime</code> data type.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rows: 7963 Columns: 22                                                                                                                                                                                  
+── Column specification ───────────────────────────────────────────────────────
+Delimiter: ","
+chr   (8): magType, net, id, place, type, status, locationSource, magSource
+dbl  (12): latitude, longitude, depth, mag, nst, gap, dmin, rms, horizontalError, depthError, magError, magNst
+dttm  (2): time, updated
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre></div></div>
+<p><br>
+To see the full specification with some data, I prefer to use <code class="language-plaintext highlighter-rouge">str()</code> function. It compactly displays the internal structure of an R object. So, we can view most of the information neatly.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">sample_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can easily see that there are <code class="language-plaintext highlighter-rouge">NA</code> values in some columns, the <code class="language-plaintext highlighter-rouge">place</code> column has both the approximate location and country information, and that some columns such as <code class="language-plaintext highlighter-rouge">locationSource</code> and <code class="language-plaintext highlighter-rouge">magSource</code> will not be necessary for our reporting dashboard.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spc_tbl_ [7,963 × 22] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ time           : POSIXct[1:7963], format: "2019-01-31 23:53:56" "2019-01-31 23:36:43" "2019-01-31 23:26:59" "2019-01-31 23:14:45" ...
+ $ latitude       : num [1:7963] 59.5 61.4 58 61.5 18 ...
+ $ longitude      : num [1:7963] -151.2 -150 -153.5 -150 -66.9 ...
+ $ depth          : num [1:7963] 9.2 44 59.7 44.7 13 43.7 2.27 77 67.5 35 ...
+ $ mag            : num [1:7963] 1.3 1.5 1.6 1 1.65 2.5 1.7 2.97 1.4 4.5 ...
+ $ magType        : chr [1:7963] "ml" "ml" "ml" "ml" ...
+ $ nst            : num [1:7963] NA NA NA NA 3 NA 13 3 NA NA ...
+ $ gap            : num [1:7963] NA NA NA NA 253 NA 57 259 NA 159 ...
+ $ dmin           : num [1:7963] NA NA NA NA 0.108 ...
+ $ rms            : num [1:7963] 0.34 0.42 0.53 0.36 0.45 0.94 0.09 0.16 0.55 0.41 ...
+ $ net            : chr [1:7963] "ak" "ak" "aacse" "ak" ...
+ $ id             : chr [1:7963] "ak0191fno7bz" "ak0191fnkjco" "aacse0191fnifdr" "ak0191fnftsr" ...
+ $ updated        : POSIXct[1:7963], format: "2019-02-15 22:29:46" "2019-02-15 22:29:45" "2021-05-21 15:46:36" "2019-02-15 22:29:45" ...
+ $ place          : chr [1:7963] "10 km S of Halibut Cove, Alaska" "8 km SSW of Big Lake, Alaska" "37 km W of Aleneva, Alaska" "Southern Alaska" ...
+ $ type           : chr [1:7963] "earthquake" "earthquake" "earthquake" "earthquake" ...
+ $ horizontalError: num [1:7963] NA NA NA NA 5.79 NA 0.39 8.21 NA 8.2 ...
+ $ depthError     : num [1:7963] 0.2 0.2 0.2 0.4 7.37 ...
+ $ magError       : num [1:7963] NA NA NA NA 0.08 NA 0.12 0.1 NA 0.163 ...
+ $ magNst         : num [1:7963] NA NA NA NA 2 NA 4 3 NA 11 ...
+ $ status         : chr [1:7963] "reviewed" "reviewed" "reviewed" "reviewed" ...
+ $ locationSource : chr [1:7963] "ak" "ak" "aacse" "ak" ...
+ $ magSource      : chr [1:7963] "ak" "ak" "aacse" "ak" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   time = col_datetime(format = ""),
+  ..   latitude = col_double(),
+  ..   longitude = col_double(),
+  ..   depth = col_double(),
+  ..   mag = col_double(),
+  ..   magType = col_character(),
+  ..   nst = col_double(),
+  ..   gap = col_double(),
+  ..   dmin = col_double(),
+  ..   rms = col_double(),
+  ..   net = col_character(),
+  ..   id = col_character(),
+  ..   updated = col_datetime(format = ""),
+  ..   place = col_character(),
+  ..   type = col_character(),
+  ..   horizontalError = col_double(),
+  ..   depthError = col_double(),
+  ..   magError = col_double(),
+  ..   magNst = col_double(),
+  ..   status = col_character(),
+  ..   locationSource = col_character(),
+  ..   magSource = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt;
+</code></pre></div></div>
+<p><br>
+After <code class="language-plaintext highlighter-rouge">str()</code>, I use <code class="language-plaintext highlighter-rouge">summary()</code> function to see the summary statistics. It helps to understand the numerical data better, as well as see the total number of <code class="language-plaintext highlighter-rouge">NA</code> values in each column.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">sample_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      time                           latitude     
+ Min.   :2019-01-01 00:04:00.75   Min.   :-64.94  
+ 1st Qu.:2019-01-08 14:16:24.94   1st Qu.: 33.23  
+ Median :2019-01-15 21:04:25.75   Median : 46.87  
+ Mean   :2019-01-16 05:48:41.27   Mean   : 41.92  
+ 3rd Qu.:2019-01-23 15:21:38.52   3rd Qu.: 61.41  
+ Max.   :2019-01-31 23:53:56.27   Max.   : 85.85  
+                                                  
+   longitude          depth              mag       
+ Min.   :-179.9   Min.   : -3.480   Min.   :1.000  
+ 1st Qu.:-150.2   1st Qu.:  6.995   1st Qu.:1.300  
+ Median :-144.6   Median : 15.640   Median :1.700  
+ Mean   :-108.7   Mean   : 38.999   Mean   :2.149  
+ 3rd Qu.:-115.5   3rd Qu.: 43.900   3rd Qu.:2.570  
+ Max.   : 180.0   Max.   :623.950   Max.   :6.800  
+                                                   
+   magType               nst             gap       
+ Length:7963        Min.   :  0.0   Min.   : 11.0  
+ Class :character   1st Qu.: 10.0   1st Qu.: 68.0  
+ Mode  :character   Median : 18.0   Median :104.0  
+                    Mean   : 23.5   Mean   :123.7  
+                    3rd Qu.: 33.0   3rd Qu.:161.9  
+                    Max.   :221.0   Max.   :355.5  
+                    NA's   :5134    NA's   :3626   
+      dmin             rms             net           
+ Min.   : 0.000   Min.   :0.0000   Length:7963       
+ 1st Qu.: 0.047   1st Qu.:0.1900   Class :character  
+ Median : 0.175   Median :0.4300   Mode  :character  
+ Mean   : 1.153   Mean   :0.4498                     
+ 3rd Qu.: 1.268   3rd Qu.:0.6200                     
+ Max.   :36.335   Max.   :2.9400                     
+ NA's   :3736                                        
+      id               updated                      
+ Length:7963        Min.   :2019-01-01 01:35:02.50  
+ Class :character   1st Qu.:2019-01-17 18:50:06.83  
+ Mode  :character   Median :2019-01-29 21:12:18.36  
+                    Mean   :2019-04-10 09:43:53.80  
+                    3rd Qu.:2019-04-02 20:52:06.03  
+                    Max.   :2023-04-01 03:09:54.75  
+                                                    
+    place               type           horizontalError 
+ Length:7963        Length:7963        Min.   : 0.090  
+ Class :character   Class :character   1st Qu.: 0.300  
+ Mode  :character   Mode  :character   Median : 0.980  
+                                       Mean   : 3.619  
+                                       3rd Qu.: 6.600  
+                                       Max.   :31.200  
+                                       NA's   :3907    
+   depthError         magError         magNst      
+ Min.   :  0.000   Min.   :0.000   Min.   :  0.00  
+ 1st Qu.:  0.300   1st Qu.:0.100   1st Qu.:  6.00  
+ Median :  0.600   Median :0.150   Median : 14.00  
+ Mean   :  2.701   Mean   :0.180   Mean   : 22.39  
+ 3rd Qu.:  1.920   3rd Qu.:0.215   3rd Qu.: 25.00  
+ Max.   :132.200   Max.   :5.410   Max.   :582.00  
+                   NA's   :3765    NA's   :3722    
+    status          locationSource      magSource        
+ Length:7963        Length:7963        Length:7963       
+ Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character
+</code></pre></div></div>
+<p><br>
+Another way to view only the <code class="language-plaintext highlighter-rouge">NA</code> values count is to use <code class="language-plaintext highlighter-rouge">is.na()</code> function together with <code class="language-plaintext highlighter-rouge">colSums()</code> function.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colSums</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">sample_data</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           time        latitude       longitude           depth 
+              0               0               0               0 
+            mag         magType             nst             gap 
+              0               0            5134            3626 
+           dmin             rms             net              id 
+           3736               0               0               0 
+        updated           place            type horizontalError 
+              0               0               0            3907 
+     depthError        magError          magNst          status 
+              0            3765            3722               0 
+ locationSource       magSource 
+              0               0
+</code></pre></div></div>
+<p><br>
+Now that we have got a good overview of our data, we should also check if there are any duplicated rows. We use <code class="language-plaintext highlighter-rouge">duplicated()</code> function for this purpose.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sample_data</span><span class="p">[</span><span class="n">duplicated</span><span class="p">(</span><span class="n">sample_data</span><span class="p">),]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Since we have a <code class="language-plaintext highlighter-rouge">tibble</code> with 0 rows (observations), it means that we don’t have any duplicated rows. Now that we have a good understanding of our data structure, we can start with writing a script.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 0 × 22
+# … with 22 variables: time &lt;dttm&gt;, latitude &lt;dbl&gt;, longitude &lt;dbl&gt;, depth &lt;dbl&gt;, mag &lt;dbl&gt;, magType &lt;chr&gt;, nst &lt;dbl&gt;, gap &lt;dbl&gt;, dmin &lt;dbl&gt;, rms &lt;dbl&gt;, net &lt;chr&gt;,
+#   id &lt;chr&gt;, updated &lt;dttm&gt;, place &lt;chr&gt;, type &lt;chr&gt;, horizontalError &lt;dbl&gt;, depthError &lt;dbl&gt;, magError &lt;dbl&gt;, magNst &lt;dbl&gt;, status &lt;chr&gt;, locationSource &lt;chr&gt;,
+#   magSource &lt;chr&gt;
+# ℹ Use `colnames()` to see all variable names
+</code></pre></div></div>
+<p><br></p>
+
+<h2 id="2-collect-explore-and-transform-data-using-r-script">
+<a class="anchor" href="#2-collect-explore-and-transform-data-using-r-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Collect, Explore and Transform data using R script</h2>
+<p>In this part of the project, R script is created to:</p>
+<ol>
+  <li>access web service API and query the data,</li>
+  <li>download the result files,</li>
+  <li>merge the downloaded files,</li>
+  <li>explore and clean the merged data to make it ready for the reporting dashboard, and</li>
+  <li>create a CSV file with the final tidy data.
+<br>
+</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">httr</code>, <code class="language-plaintext highlighter-rouge">lubridate</code>, <code class="language-plaintext highlighter-rouge">readr</code>, <code class="language-plaintext highlighter-rouge">dplyr</code>, <code class="language-plaintext highlighter-rouge">tidyr</code>, and <code class="language-plaintext highlighter-rouge">stringr</code> packages are used to collect and manipulate data. The <code class="language-plaintext highlighter-rouge">GET()</code> function of <code class="language-plaintext highlighter-rouge">httr</code> package is used to access the web service API to get a response from the <code class="language-plaintext highlighter-rouge">count</code> function to query the total number of results. <code class="language-plaintext highlighter-rouge">readr</code> package is used to read csv file into a data frame. <code class="language-plaintext highlighter-rouge">lubridate</code> package is used to turn data into date data type and to manipulate dates. <code class="language-plaintext highlighter-rouge">dplyr</code>, <code class="language-plaintext highlighter-rouge">tidyr</code>, and <code class="language-plaintext highlighter-rouge">stringr</code> packages are used to manipulate and tidy data.</p>
+
+<p>First, import necessary packages to use their functions.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">httr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">lubridate</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Set the working directory as the source file directory. So that when the files are downloaded, they will be downloaded to the same directory as the R script file. If you use RStudio to run this code, you will get an error message. In that case, you can comment out this code.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="n">getSrcDirectory</span><span class="p">(</span><span class="k">function</span><span class="p">(){})[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The files are to be downloaded to a folder named ‘EQData’. The <code class="language-plaintext highlighter-rouge">file_path</code> variable is declared in a global environment so that it can be used from anywhere. If there is a need to change the download folder name, it can be edited here.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">file_path</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"./EQData"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After the <code class="language-plaintext highlighter-rouge">file_path</code> is declared, we check if the folder ‘EQData’ already existed or not by using <code class="language-plaintext highlighter-rouge">dir.exists()</code> function and giving <code class="language-plaintext highlighter-rouge">file_path</code> as an argument. Here, we only need to create a new folder if it does not exist. So, <code class="language-plaintext highlighter-rouge">!</code> keyword is used to check if the folder does not exist. If it does not, we create a new folder by using <code class="language-plaintext highlighter-rouge">dir.create()</code> function and giving <code class="language-plaintext highlighter-rouge">file_path</code> as an argument.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check if the folder exists, if not, create one.</span><span class="w">
+</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">dir.exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">dir.create</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+<p>To query the data using the web service API, we need to pass <code class="language-plaintext highlighter-rouge">start date</code> and <code class="language-plaintext highlighter-rouge">end date</code> parameters. We need to make sure that the data passed are in date data type, and that the end date is not earlier than the start date. The <code class="language-plaintext highlighter-rouge">ValidateDates()</code> function validates the dates and stops the script if a validation failed. The first validation used <code class="language-plaintext highlighter-rouge">is.Date()</code> function from <code class="language-plaintext highlighter-rouge">lubridate</code> package, together with <code class="language-plaintext highlighter-rouge">!</code> keyword, to check if either of the <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code> arguments are not in <code class="language-plaintext highlighter-rouge">date</code> data type. If either one are not in <code class="language-plaintext highlighter-rouge">date</code> data type, we need the script to stop running and show an error message. To achieve that, we use <code class="language-plaintext highlighter-rouge">stop()</code> function execution with an appropriate error message. For the second validation, we just need to check if the <code class="language-plaintext highlighter-rouge">endDate</code> is earlier than the <code class="language-plaintext highlighter-rouge">startDate</code>. Then, use <code class="language-plaintext highlighter-rouge">stop()</code> function again with an appropriate error message. This function can be called whenever we need to validate the start date and the end date.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ValidateDates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Validates the start and end date range arguments and shows stop message if </span><span class="w">
+  </span><span class="c1"># one of the validations failed. </span><span class="w">
+  </span><span class="c1"># Validation 1: Check if the given arguments are not valid dates.</span><span class="w">
+  </span><span class="c1"># Validation 2: Check if the End Date is earlier than the Start Date.</span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    startDate (Date): Start Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    endDate (Date): End Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    No return value. </span><span class="w">
+
+  </span><span class="c1"># Check if the given arguments are not valid dates.</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">is.Date</span><span class="p">(</span><span class="n">startDate</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">!</span><span class="n">is.Date</span><span class="p">(</span><span class="n">endDate</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">stop</span><span class="p">(</span><span class="s2">"Please give valid date parameters using as.Date or as_date 
+         functions."</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="c1"># Check if the End Date is earlier than the Start Date.</span><span class="w">
+  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">endDate</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">startDate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">stop</span><span class="p">(</span><span class="s2">"End Date must be later than the Start Date."</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+Before we download the records, we need to make sure that the records count to download does not exceed 20,000 records. We can call the <code class="language-plaintext highlighter-rouge">count</code> method of web service API to get the total number of records. We will be checking the records count every time we download a file for each month. Below function will first validate the <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code> arguments by calling <code class="language-plaintext highlighter-rouge">ValidateDates()</code> function. Then, the API URL of <code class="language-plaintext highlighter-rouge">count</code> method is concatenated and called using the given arguments. From the response, we get the number of records by using <code class="language-plaintext highlighter-rouge">content()</code> function. Since the response returned is in <code class="language-plaintext highlighter-rouge">character</code> data type, <code class="language-plaintext highlighter-rouge">as.integer()</code> function is used to change it to <code class="language-plaintext highlighter-rouge">integer</code> data type and return the value.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CheckRecordsCount</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Queries the record count to be downloaded for the given date arguments. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    startDate (Date): Start Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    endDate (Date): End Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    The total number of records. Integer data type. </span><span class="w">
+  
+  </span><span class="c1"># Validate date arguments.</span><span class="w">
+  </span><span class="n">ValidateDates</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w">
+
+  </span><span class="n">records_num_url</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
+    </span><span class="n">GET</span><span class="p">(</span><span class="w">
+      </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+        </span><span class="s2">"https://earthquake.usgs.gov/fdsnws/event/1/count?starttime="</span><span class="p">,</span><span class="w">
+        </span><span class="n">startDate</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"00:00:00&amp;endtime="</span><span class="p">,</span><span class="w">
+        </span><span class="n">endDate</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"23:59:59"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"&amp;minmagnitude=1"</span><span class="w">
+      </span><span class="p">)</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  </span><span class="n">total_records</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">content</span><span class="p">(</span><span class="n">records_num_url</span><span class="p">))</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">total_records</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+For the files to be downloaded, the file names should be in a format that is easy to keep track of. We will be using the file name format as  <code class="language-plaintext highlighter-rouge">text_yyyy_mmm.extension</code>, “<strong>earthquake_data_2013_Jan.csv</strong>”. So, following function gets the <code class="language-plaintext highlighter-rouge">fileDate</code> and <code class="language-plaintext highlighter-rouge">fileExtension</code> arguments and concatenate them together with <code class="language-plaintext highlighter-rouge">file_path</code> variable to get a file name. The file name is returned as a character value.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SetFileName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">fileDate</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Sets a file name to be saved as for the file to download. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    fileDate (Date): File Date to get month and year. </span><span class="w">
+  </span><span class="c1">#    fileExtension (character): File extension to be saved as. </span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A file name to be saved as. character data type. </span><span class="w">
+  
+  </span><span class="n">file_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
+    </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+      </span><span class="n">file_path</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"/earthquake_data_"</span><span class="p">,</span><span class="w">
+      </span><span class="n">year</span><span class="p">(</span><span class="n">fileDate</span><span class="p">),</span><span class="w">
+      </span><span class="s2">"_"</span><span class="p">,</span><span class="w">
+      </span><span class="n">month</span><span class="p">(</span><span class="n">fileDate</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w">
+      </span><span class="n">fileExtension</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+The <code class="language-plaintext highlighter-rouge">DownloadFile()</code> function gets the <code class="language-plaintext highlighter-rouge">startDate</code>, <code class="language-plaintext highlighter-rouge">endDate</code>, and <code class="language-plaintext highlighter-rouge">fileName</code> arguments and downloads the query results. Before downloading the file, <code class="language-plaintext highlighter-rouge">ValidateDates()</code> function is called to validate the given dates. Then, the API URL of <code class="language-plaintext highlighter-rouge">query</code> method is concatenated using the given arguments. After concatenating the URL, we use <code class="language-plaintext highlighter-rouge">download.file()</code> function to download a CSV file by passing the API URL, given file name, and download method. A CSV file will be downloaded to the destination folder.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DownloadFile</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">,</span><span class="w"> </span><span class="n">fileName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Downloads the query results as a csv file using the query URL. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    startDate (Date): Start Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    endDate (Date): End Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    fileName (character): File name to be saved as, including path and </span><span class="w">
+  </span><span class="c1">#              extension.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    No return value. </span><span class="w">
+  
+  </span><span class="c1"># Validate date arguments.</span><span class="w">
+  </span><span class="n">ValidateDates</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w">
+
+  </span><span class="n">file_url</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
+    </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+      </span><span class="s2">"https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&amp;starttime="</span><span class="p">,</span><span class="w">
+      </span><span class="n">startDate</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"00:00:00&amp;endtime="</span><span class="p">,</span><span class="w">
+      </span><span class="n">endDate</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"23:59:59"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"&amp;minmagnitude=1"</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  </span><span class="n">download.file</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span><span class="w"> </span><span class="n">destfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileName</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"curl"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+The <code class="language-plaintext highlighter-rouge">DownloadFile()</code> function above downloads a file, usually for a particular month, while the <code class="language-plaintext highlighter-rouge">DownloadAll()</code> function below prepares and processes the download of all files for all the months between the given <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code> arguments. The <code class="language-plaintext highlighter-rouge">startDate</code> and the <code class="language-plaintext highlighter-rouge">endDate</code> arguments set the date range that needs to be downloaded. First, <code class="language-plaintext highlighter-rouge">ValidateDates()</code> function is called to validate the given date arguments. To download for all the months between the given <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code>, the <code class="language-plaintext highlighter-rouge">while()</code> loop is used together with a stop flag variable to iterate for the file download of each month, until the <code class="language-plaintext highlighter-rouge">endDate</code> is reached.</p>
+
+<p>For the file download, the result records limit is 20,000 per download. So, for easier tracking, the file is downloaded per month using iteration. If per month still exceeds 20,000 records, the records for that month are separated into three files. 10 days each for the first two files and the remaining days in the last file. Separating the data into three files helps us ensure that the result limit will not be exceeded. So, to download the files for each month, we need to use a date range for that particular month. We cannot use <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code> arguments. The <code class="language-plaintext highlighter-rouge">curr_start_date</code> and the <code class="language-plaintext highlighter-rouge">curr_end_date</code> variables are used to set the start date and the end date of the current month to download. For the first download, <code class="language-plaintext highlighter-rouge">curr_start_date</code> is set with the value of <code class="language-plaintext highlighter-rouge">startDate</code> argument, and the <code class="language-plaintext highlighter-rouge">curr_end_date</code> is set by using the <code class="language-plaintext highlighter-rouge">ceiling_date()</code> function of <code class="language-plaintext highlighter-rouge">lubridate</code> package to get the last day of the month. The <code class="language-plaintext highlighter-rouge">curr_end_date</code> variable is then validated against <code class="language-plaintext highlighter-rouge">endDate</code> to ensure that it is not later than the <code class="language-plaintext highlighter-rouge">endDate</code>. If it is, the <code class="language-plaintext highlighter-rouge">curr_end_date</code> variable is set with the value of <code class="language-plaintext highlighter-rouge">endDate</code>, and the <code class="language-plaintext highlighter-rouge">last_dl</code> flag is set as <code class="language-plaintext highlighter-rouge">TRUE</code>. By reaching the <code class="language-plaintext highlighter-rouge">endDate</code>, the download is done, and the next iteration will be stopped. If the <code class="language-plaintext highlighter-rouge">endDate</code> is not reached yet, the iteration will continue, and in the next iteration, a day is added to the <code class="language-plaintext highlighter-rouge">curr_end_date</code> variable and set it as the value of the <code class="language-plaintext highlighter-rouge">curr_start_date</code> variable. That way, we will download the file for the next month and the iteration will continue until the <code class="language-plaintext highlighter-rouge">endDate</code> is reached.</p>
+
+<p>After the values of the <code class="language-plaintext highlighter-rouge">curr_start_date</code> and the <code class="language-plaintext highlighter-rouge">curr_end_date</code> are defined, we call the <code class="language-plaintext highlighter-rouge">CheckRecordsCount()</code> function with the <code class="language-plaintext highlighter-rouge">curr_start_date</code> and the <code class="language-plaintext highlighter-rouge">curr_end_date</code> as arguments. Then, we validate if the <code class="language-plaintext highlighter-rouge">records_to_dl</code> value is more than 20,000 records. If it is more than the limit, we separate the date range into 10 days each in the first two files and the remaining days in the last file. The <code class="language-plaintext highlighter-rouge">file_ext</code> variable is used to concatenate “-1”, “-2”,  or “-3” before the given <code class="language-plaintext highlighter-rouge">fileExtension</code> value. The <code class="language-plaintext highlighter-rouge">SetFileName()</code> function is called with the arguments <code class="language-plaintext highlighter-rouge">curr_start_date</code> and <code class="language-plaintext highlighter-rouge">file_ext</code>, then, set the returned file name value to the <code class="language-plaintext highlighter-rouge">file_name</code> variable. After setting the file name, we call <code class="language-plaintext highlighter-rouge">DownloadFile()</code> function. The arguments given to the function varied for each file.</p>
+<ul>
+  <li>For the first file, to download the first 10 days, we start the date range from the <code class="language-plaintext highlighter-rouge">curr_start_date</code> and add 9 days to get the end date. So, the arguments given are: <code class="language-plaintext highlighter-rouge">curr_start_date</code>, <code class="language-plaintext highlighter-rouge">curr_start_date + days(9)</code>, and <code class="language-plaintext highlighter-rouge">file_name</code>.</li>
+  <li>For the second file, to download the next 10 days, we start the date range from the day 11 to the day 20. So, the arguments given are: <code class="language-plaintext highlighter-rouge">curr_start_date + days(10)</code>, <code class="language-plaintext highlighter-rouge">curr_start_date + days(19)</code>, and <code class="language-plaintext highlighter-rouge">file_name</code>.</li>
+  <li>For the last file, to download the last remaining days, we start the date range from the day 21 to the last day of the month. So, the arguments given are: <code class="language-plaintext highlighter-rouge">curr_start_date + days(20)</code>, <code class="language-plaintext highlighter-rouge">curr_end_date</code>, and <code class="language-plaintext highlighter-rouge">file_name</code>.
+For the months with less than 20,000 results, we call <code class="language-plaintext highlighter-rouge">DownloadFile()</code> function with the arguments <code class="language-plaintext highlighter-rouge">curr_start_date</code>, <code class="language-plaintext highlighter-rouge">curr_end_date</code> and <code class="language-plaintext highlighter-rouge">file_name</code>. Then, we add the number of records downloaded to the <code class="language-plaintext highlighter-rouge">downloaded_records</code> variable, to keep track of the total downloaded records. The iteration count <code class="language-plaintext highlighter-rouge">itr_count</code> variable is also incremented to record the total number of iterations.</li>
+</ul>
+
+<p>Lastly, we return the download successful message, including the total number of downloaded records and the number of iterations.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DownloadAll</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Prepares to download csv files per month using the given date arguments. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    startDate (Date): Start Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    endDate (Date): End Date parameter of the query. </span><span class="w">
+  </span><span class="c1">#    fileExtension (character): File extension to be saved as. </span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A success message. character data type. </span><span class="w">
+  
+  </span><span class="c1"># Validate date parameters.</span><span class="w">
+  </span><span class="n">ValidateDates</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w">
+
+  </span><span class="c1"># define count of records to download for each iteration</span><span class="w">
+  </span><span class="n">records_to_dl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+  </span><span class="c1"># define count of all downloaded records</span><span class="w">
+  </span><span class="n">downloaded_records</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+  </span><span class="c1"># define iteration count</span><span class="w">
+  </span><span class="n">itr_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+  </span><span class="c1"># define iteration stop flag</span><span class="w">
+  </span><span class="n">last_dl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">FALSE</span><span class="w">
+
+  </span><span class="c1"># For the file download, the result records limit is 20,000 per download.</span><span class="w">
+  </span><span class="c1"># So, for easier tracking, the file is downloaded per month using iteration.</span><span class="w">
+  </span><span class="c1"># If per month still exceeds 20,000 records, the records for that month are </span><span class="w">
+  </span><span class="c1"># separated into three files download. 10 days each for the first two files and the </span><span class="w">
+  </span><span class="c1"># remaining days in the last file.</span><span class="w">
+  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">last_dl</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1"># iterate until the flag is set as TRUE.</span><span class="w">
+    </span><span class="c1"># The logic for setting curr_start_date is to check the iteration count.</span><span class="w">
+    </span><span class="c1"># If it's the 1st iteration, the given startDate argument is used. </span><span class="w">
+    </span><span class="c1"># If it's not the 1st iteration, the value is set by adding one day to the</span><span class="w">
+    </span><span class="c1"># previous iteration's End Date, curr_end_date.</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">itr_count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">startDate</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">curr_end_date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+    </span><span class="c1"># curr_end_date is set as the last day of the month from curr_start_date </span><span class="w">
+    </span><span class="c1"># and validate against the given endDate argument to check if it's later </span><span class="w">
+    </span><span class="c1"># than the endDate. If it is, the curr_end_date is set with the value of </span><span class="w">
+    </span><span class="c1"># endDate argument.</span><span class="w">
+    </span><span class="n">curr_end_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ceiling_date</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="s2">"month"</span><span class="p">)</span><span class="w"> </span><span class="o">%m-%</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">curr_end_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">curr_end_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">endDate</span><span class="w">  </span><span class="c1"># Set as the given argument.</span><span class="w">
+      </span><span class="n">last_dl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="w">  </span><span class="c1"># Set the flag as TRUE to end the iteration.</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+    </span><span class="c1"># Check the current record counts to be downloaded.</span><span class="w">
+    </span><span class="n">records_to_dl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CheckRecordsCount</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">curr_end_date</span><span class="p">)</span><span class="w">
+
+    </span><span class="c1"># Check if the record limit is exceeded, if true, separate as three files.</span><span class="w">
+    </span><span class="c1"># If not, download the records.</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">records_to_dl</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="c1"># Set file name of the 1st file to be saved as. </span><span class="w">
+      </span><span class="n">file_ext</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"-1"</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w">
+      </span><span class="n">file_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetFileName</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_ext</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Download the first 10 days.</span><span class="w">
+      </span><span class="n">DownloadFile</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">9</span><span class="p">),</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Set file name of the 2nd file to be saved as. </span><span class="w">
+      </span><span class="n">file_ext</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"-2"</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w">
+      </span><span class="n">file_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetFileName</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_ext</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Download another 10 days.</span><span class="w">
+      </span><span class="n">DownloadFile</span><span class="p">(</span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">10</span><span class="p">),</span><span class="w"> </span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">19</span><span class="p">),</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Set file name of the last file to be saved as. </span><span class="w">
+      </span><span class="n">file_ext</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"-3"</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w">
+      </span><span class="n">file_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetFileName</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_ext</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Download the remaining days.</span><span class="w">
+      </span><span class="n">DownloadFile</span><span class="p">(</span><span class="n">curr_start_date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">days</span><span class="p">(</span><span class="m">20</span><span class="p">),</span><span class="w"> </span><span class="n">curr_end_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span><span class="w">
+      
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="c1"># Set file name of the last file to be saved as. </span><span class="w">
+      </span><span class="n">file_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetFileName</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">fileExtension</span><span class="p">)</span><span class="w">
+      
+      </span><span class="c1"># Download the file for the month.</span><span class="w">
+      </span><span class="n">DownloadFile</span><span class="p">(</span><span class="n">curr_start_date</span><span class="p">,</span><span class="w"> </span><span class="n">curr_end_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="c1"># Increment the downloaded records.</span><span class="w">
+    </span><span class="n">downloaded_records</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">downloaded_records</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">records_to_dl</span><span class="w">
+    </span><span class="c1"># Increment the iteration count.</span><span class="w">
+    </span><span class="n">itr_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">itr_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  
+  </span><span class="c1"># Return the success message. </span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="w">
+    </span><span class="n">paste0</span><span class="p">(</span><span class="w">
+      </span><span class="s2">"Successfully downloaded "</span><span class="p">,</span><span class="w">
+      </span><span class="n">downloaded_records</span><span class="p">,</span><span class="w">
+      </span><span class="s2">" records in "</span><span class="p">,</span><span class="w">
+      </span><span class="n">itr_count</span><span class="p">,</span><span class="w">
+      </span><span class="s2">" files."</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+After all the files are downloaded, we can start with the file merge. The <code class="language-plaintext highlighter-rouge">MergeFiles()</code> function uses the pipe function <code class="language-plaintext highlighter-rouge">%&gt;%</code> from <code class="language-plaintext highlighter-rouge">dplyr</code> package to chain a few functions in a series. First, the <code class="language-plaintext highlighter-rouge">list.files()</code> function is used to list all the files in the given directory, which is the value of global variable <code class="language-plaintext highlighter-rouge">file_path</code>. Then, the <code class="language-plaintext highlighter-rouge">lapply()</code> function is used to apply <code class="language-plaintext highlighter-rouge">read_csv()</code> function to all the files. The <code class="language-plaintext highlighter-rouge">bind_rows()</code> function is applied last to bind the records of the all the files read. The merged data frame is returned.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MergeFiles</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Reads all the files in the given directory and bind them by rows. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    None.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A data frame of merged rows. </span><span class="w">
+  
+  </span><span class="n">eqk_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">lapply</span><span class="p">(</span><span class="n">read_csv</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">bind_rows</span><span class="p">()</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">eqk_data</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+We now have a merged data frame with all the records. Referring to the sample data we explored in section <a href="###%201.3%20Explore%20sample%20data">1.3 Explore sample data</a>, we can now start cleaning the data. The <code class="language-plaintext highlighter-rouge">RemoveDuplicates()</code> function removes all the duplicated rows if exist. Most functions used here are from the <code class="language-plaintext highlighter-rouge">dplyr</code> package. The pipe function <code class="language-plaintext highlighter-rouge">%&gt;%</code> is used to apply the <code class="language-plaintext highlighter-rouge">group_by_all()</code> function to group the records. Then, the <code class="language-plaintext highlighter-rouge">filter()</code> function used to filter the groups with more than 1 records (i.e. duplicated rows). The <code class="language-plaintext highlighter-rouge">ungroup()</code> function is applied last to ungroup the data. So, we get duplicated rows in a data frame. The <code class="language-plaintext highlighter-rouge">nrow()</code> function is used to check if there is any record. If there is, the <code class="language-plaintext highlighter-rouge">distinct()</code> function is used to filter only the unique records. The unique data frame is then returned. The advantage of checking the duplicated records this way is that we have the data frame of duplicated records if we want to view the data. Otherwise, we can skip everything and just use the line <code class="language-plaintext highlighter-rouge">df &lt;- distinct(df)</code> to get the unique records.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">RemoveDuplicates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Removes all the duplicated rows. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    df (data frame): A data frame to remove duplicates.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A data frame of unique rows. </span><span class="w">
+  
+  </span><span class="c1"># Check if duplicated rows exists</span><span class="w">
+  </span><span class="n">duplicate_rows</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">group_by_all</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">filter</span><span class="p">(</span><span class="n">n</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">ungroup</span><span class="p">()</span><span class="w">
+  
+  </span><span class="c1"># Remove duplicates if there is any</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nrow</span><span class="p">(</span><span class="n">duplicate_rows</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">distinct</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+The <code class="language-plaintext highlighter-rouge">CheckMissingDates()</code> function checks and returns all the missing dates from the data frame, within the range of given date arguments. First, we convert the <code class="language-plaintext highlighter-rouge">time</code> column as date data type using <code class="language-plaintext highlighter-rouge">as.Date()</code> function. Then, we generate a list of all dates between the given <code class="language-plaintext highlighter-rouge">startDate</code> and <code class="language-plaintext highlighter-rouge">endDate</code> arguments using <code class="language-plaintext highlighter-rouge">seq()</code> function. After that, we filter the dates from the <code class="language-plaintext highlighter-rouge">all_dates</code> which are not in the given data frame argument. They are the missing dates in the given data frame and the result is returned.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CheckMissingDates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Returns all the missing dates from the data frame between the start date and</span><span class="w">
+  </span><span class="c1"># the end date. If there is a missing date, it is most likely that the</span><span class="w">
+  </span><span class="c1"># downloaded files were incomplete.  </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    df (data frame): A data frame to check the missing dates.</span><span class="w">
+  </span><span class="c1">#    startDate (Date): Start Date parameter to check the missing dates. </span><span class="w">
+  </span><span class="c1">#    endDate (Date): End Date parameter to check the missing dates. </span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A list of missing dates. </span><span class="w">
+  
+  </span><span class="c1"># Convert time column as Date data type.</span><span class="w">
+  </span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.Date</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="p">)</span><span class="w">
+  
+  </span><span class="c1"># Get a list of all dates within the given start and end dates in sequence.</span><span class="w">
+  </span><span class="n">all_dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span><span class="w"> </span><span class="n">endDate</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+  
+  </span><span class="c1"># Check if there is any date from all_dates that are not in df.</span><span class="w">
+  </span><span class="n">missing_dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">all_dates</span><span class="p">[</span><span class="o">!</span><span class="n">all_dates</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="p">]</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+The <code class="language-plaintext highlighter-rouge">SeparateLocationColumn()</code> function separates <code class="language-plaintext highlighter-rouge">place</code> column into two columns, <code class="language-plaintext highlighter-rouge">Location Detail</code> and <code class="language-plaintext highlighter-rouge">Location</code>. When exploring the sample data, we saw that the <code class="language-plaintext highlighter-rouge">place</code> column contains the approximate location and the country name separated by commas. We only need the country name information. The country name is after the last comma. So, we need to make sure that we use the last comma as a separator to get the country names only. We use <code class="language-plaintext highlighter-rouge">separate()</code> function from <code class="language-plaintext highlighter-rouge">tidyr</code> package to separate the column. A regular expression- <code class="language-plaintext highlighter-rouge">,(?=[^,]*$)</code> is used to match the last comma as a separator. To understand the regular expression, test it out at <a href="https://regexr.com/">RegExr</a> website. The data frame with separated columns is returned.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SeparateLocationColumn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Separates 'place' column into two columns: 'Location Detail' and 'Location'.</span><span class="w">
+  </span><span class="c1"># The last comma is used as a separator.</span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    df (data frame): A data frame to check the missing dates.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A data frame with separated columns. </span><span class="w">
+  
+  </span><span class="n">df_separated</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">
+    </span><span class="n">separate</span><span class="p">(</span><span class="w">
+      </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w">
+      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">,</span><span class="w">
+      </span><span class="n">into</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Location Detail"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Location"</span><span class="p">),</span><span class="w">
+      </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">",(?=[^,]*$)"</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">df_separated</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+The <code class="language-plaintext highlighter-rouge">CleanData()</code> function cleans the <code class="language-plaintext highlighter-rouge">Location</code> column by trimming extra spaces and setting title case. It also drops the records with NA in location, latitude, longitude columns, and replaces the US States abbreviations with names. The functions from <code class="language-plaintext highlighter-rouge">tidyr</code>, <code class="language-plaintext highlighter-rouge">stringr</code>, and <code class="language-plaintext highlighter-rouge">dplyr</code> packages are used. The cleaned data frame is returned.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CleanData</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Cleans the Location column by trimming extra spaces and setting title case.</span><span class="w">
+  </span><span class="c1"># Drops the records with NA in location, latitude, longitude columns. </span><span class="w">
+  </span><span class="c1"># Replaces the abbreviations. </span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    df (data frame): A data frame to clean the data.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A data frame with a cleaned data. </span><span class="w">
+  
+  </span><span class="n">df_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">mutate</span><span class="p">(</span><span class="w">
+      </span><span class="n">Location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">case_when</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Location</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">`Location Detail`</span><span class="p">,</span><span class="w"> 
+                           </span><span class="kc">TRUE</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Location</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+        </span><span class="n">str_trim</span><span class="p">(</span><span class="n">.</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+        </span><span class="n">str_to_title</span><span class="p">(</span><span class="n">.</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+        </span><span class="c1"># A named vector is used to match multiple patterns.</span><span class="w">
+        </span><span class="n">str_replace_all</span><span class="p">(</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"\\bAk\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Alaska"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bAr\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Arkansas"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bAz\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Arizona"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bCa\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"California"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bCo\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Colorado"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bHi\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hawaii"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bId\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Idaho"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bKs\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Kansas"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bKy\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Kentucky"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bMn\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Minnesota"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bMo\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Missouri"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bMt\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Montana"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bMx\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Mexico"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bNc\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"North Carolina"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bNj\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"New Jersey"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bNm\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"New Mexico"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bNy\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"New York"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bNv\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Nevada"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bOk\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Oklahoma"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bOr\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Oregon"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bTn\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Tennessee"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bTx\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="s2">"\\bUsa\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bUt\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Utah"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bWa\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Washington"</span><span class="p">,</span><span class="w">
+                             </span><span class="s2">"\\bWy\\b"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Wyoming"</span><span class="p">))</span><span class="w">
+    </span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">drop_na</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="c1"># Drop records with latitude as NA</span><span class="w">
+    </span><span class="n">drop_na</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="c1"># Drop records with longitude as NA</span><span class="w">
+    </span><span class="n">drop_na</span><span class="p">(</span><span class="n">Location</span><span class="p">)</span><span class="w"> </span><span class="c1"># Drop records with Location as NA</span><span class="w">
+  
+  </span><span class="c1"># Drop unnecessary columns</span><span class="w">
+  </span><span class="n">df_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">select</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="n">nst</span><span class="p">,</span><span class="w"> </span><span class="n">gap</span><span class="p">,</span><span class="w"> </span><span class="n">dmin</span><span class="p">,</span><span class="w"> </span><span class="n">rms</span><span class="p">,</span><span class="w"> </span><span class="n">net</span><span class="p">,</span><span class="w"> </span><span class="n">updated</span><span class="p">,</span><span class="w"> </span><span class="n">horizontalError</span><span class="p">,</span><span class="w"> </span><span class="n">depthError</span><span class="p">,</span><span class="w"> </span><span class="n">magError</span><span class="p">,</span><span class="w"> </span><span class="n">magNst</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">locationSource</span><span class="p">,</span><span class="w"> </span><span class="n">magSource</span><span class="p">,</span><span class="w"> </span><span class="s1">'Location Detail'</span><span class="p">))</span><span class="w">
+  
+  </span><span class="c1"># Get all locations with abbreviations. </span><span class="w">
+  </span><span class="c1"># df_abbr &lt;- df_cleaned$Location[nchar(as.character(df_cleaned$Location)) &lt; 4]</span><span class="w">
+  
+  </span><span class="c1"># Check the unique abbreviations.</span><span class="w">
+  </span><span class="c1"># sort(unique(df_abbr))</span><span class="w">
+  
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+Now that we have a cleaned tidy data, we can create a CSV file. The <code class="language-plaintext highlighter-rouge">CreateCSV()</code> function creates a CSV file using the <code class="language-plaintext highlighter-rouge">write.csv()</code> function. The file created message is returned.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CreateCSV</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># Creates a csv file with the merged and cleaned data.</span><span class="w">
+  </span><span class="c1"># </span><span class="w">
+  </span><span class="c1"># Args: </span><span class="w">
+  </span><span class="c1">#    df (data frame): A data frame of cleaned data.</span><span class="w">
+  </span><span class="c1">#</span><span class="w">
+  </span><span class="c1"># Returns: </span><span class="w">
+  </span><span class="c1">#    A file created message. </span><span class="w">
+  
+  </span><span class="n">write.csv</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"./earthquakes-data.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"File created with name earthquakes-data.csv and contains "</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">),</span><span class="w"> </span><span class="s2">" rows and "</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="p">(</span><span class="n">df</span><span class="p">),</span><span class="w"> </span><span class="s2">" columns."</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+We have finished writing the functions and we can start calling them with the appropriate arguments. First, <code class="language-plaintext highlighter-rouge">start_date</code>, <code class="language-plaintext highlighter-rouge">end_date</code>, and <code class="language-plaintext highlighter-rouge">file_extension</code> variables are defined. The <code class="language-plaintext highlighter-rouge">end_date</code> variable is set as today date using <code class="language-plaintext highlighter-rouge">Sys.Date()</code> function. After setting the variables, we call the functions one by one and pass appropriate arguments. Then, we print the file download message, the file create message, and the missing dates message, so that we can see them in the console.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set start date and end date of the search query. Use yyyy-mm-dd date format.</span><span class="w">
+</span><span class="n">start_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as_date</span><span class="p">(</span><span class="s2">"2013-01-01"</span><span class="p">)</span><span class="w">
+</span><span class="n">end_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Sys.Date</span><span class="p">()</span><span class="w">
+</span><span class="n">file_extension</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">".csv"</span><span class="w">
+
+</span><span class="c1"># Run the functions without recording time for each one.</span><span class="w">
+</span><span class="n">total_record</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CheckRecordsCount</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="w"> </span><span class="n">end_date</span><span class="p">)</span><span class="w">
+</span><span class="n">download_message</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">DownloadFiles</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="w"> </span><span class="n">end_date</span><span class="p">,</span><span class="w"> </span><span class="n">file_extension</span><span class="p">)</span><span class="w">
+</span><span class="n">df_merged</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">MergeFiles</span><span class="p">()</span><span class="w">
+</span><span class="n">df_unique</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">RemoveDuplicates</span><span class="p">(</span><span class="n">df_merged</span><span class="p">)</span><span class="w">
+</span><span class="n">missing_dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CheckMissingDates</span><span class="p">(</span><span class="n">df_merged</span><span class="p">,</span><span class="w"> </span><span class="n">start_date</span><span class="p">,</span><span class="w"> </span><span class="n">end_date</span><span class="p">)</span><span class="w">
+</span><span class="n">df_separated</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SeparateLocationColumn</span><span class="p">(</span><span class="n">df_unique</span><span class="p">)</span><span class="w">
+</span><span class="n">df_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CleanData</span><span class="p">(</span><span class="n">df_separated</span><span class="p">)</span><span class="w">
+</span><span class="n">create_message</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CreateCSV</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Print results to console.</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="n">download_message</span><span class="p">)</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="n">create_message</span><span class="p">)</span><span class="w">
+
+</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"Following are the missing dates: "</span><span class="p">)</span><span class="w"> 
+  </span><span class="n">print</span><span class="p">(</span><span class="n">missing_dates</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"There is no missing date."</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+Before we run the script, we can add timer to record the time it takes to run the script, including the file downloads. We just need to add the line <code class="language-plaintext highlighter-rouge">start_time &lt;- proc.time()</code> at the start of the script and the line <code class="language-plaintext highlighter-rouge">print(proc.time() - start_time)</code> at the end of the script.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set start time to time the running of the whole script. proc_time data type.</span><span class="w">
+</span><span class="n">start_time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">proc.time</span><span class="p">()</span><span class="w">
+
+</span><span class="c1"># Script Here</span><span class="w">
+
+</span><span class="c1"># Time the running of the whole script. End time.</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="nf">proc.time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><br>
+Now, we can run the script. After the script is executed completely, we will see the printed messages in the console as follows. The downloaded data is <strong>1,059,267</strong> records in <strong>124</strong> files. After transformation the data, the tidy data contains <strong>1,056,144</strong> records and <strong>9</strong> columns. The user CPU time, which is charged for the execution of user instructions of the calling process, took 137.53 seconds (2.3 mins). The system CPU time, which is charged for execution by the system on behalf of the calling process, took 22.37 seconds (0.4 mins). The elapsed time, which is the actual elapsed time since the process was  started, took 797.80 seconds (13.3 mins).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Successfully downloaded 1059267 records in 124 files."
+[1] "File created with name earthquakes-data.csv and contains 1056144 rows and 9 columns."
+[1] "There is no missing date."
+   user  system elapsed 
+ 137.53   22.37  797.80
+</code></pre></div></div>
+<p><br>
+<br></p>
+<h2 id="3-data-exploration">
+<a class="anchor" href="#3-data-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Data Exploration</h2>
+<p>Now that we have a tidy data, we can create a few plots such as boxplot, scatterplot and interactive map to understand the data better.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boxplot</span><span class="p">(</span><span class="n">df_cleaned</span><span class="o">$</span><span class="n">mag</span><span class="p">,</span><span class="w">
+        </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Boxplot of Earthquake Magnitudes"</span><span class="p">,</span><span class="w">
+        </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Magnitude"</span><span class="p">,</span><span class="w">
+        </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Earthquake"</span><span class="p">,</span><span class="w">
+        </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"orange"</span><span class="p">,</span><span class="w">
+        </span><span class="n">border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"brown"</span><span class="p">,</span><span class="w">
+        </span><span class="n">horizontal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="/img/posts/boxplot-mag.png" alt="Boxplot of Earthquake Magnitudes"></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boxplot</span><span class="p">(</span><span class="n">mag</span><span class="o">~</span><span class="n">year</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w">
+        </span><span class="n">data</span><span class="o">=</span><span class="n">df_cleaned</span><span class="p">,</span><span class="w">
+        </span><span class="n">main</span><span class="o">=</span><span class="s2">"Different Boxplots of Each Year"</span><span class="p">,</span><span class="w">
+        </span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Year"</span><span class="p">,</span><span class="w">
+        </span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Magnitude"</span><span class="p">,</span><span class="w">
+        </span><span class="n">col</span><span class="o">=</span><span class="s2">"orange"</span><span class="p">,</span><span class="w">
+        </span><span class="n">border</span><span class="o">=</span><span class="s2">"brown"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="/img/posts/boxplot-yearly.png" alt="Different Boxplots of Each Year"></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">df_cleaned</span><span class="o">$</span><span class="n">depth</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">df_cleaned</span><span class="o">$</span><span class="n">mag</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">main</span><span class="o">=</span><span class="s2">"Earthquake Magnitude Against Depth"</span><span class="p">,</span><span class="w">
+     </span><span class="n">xlab</span><span class="o">=</span><span class="s2">"Depth"</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Magnitude"</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="/img/posts/scatterplot-all-years.png" alt="Earthquake Magnitude Against Depth"></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># For efficiency, subset only the records of year 2022</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df_cleaned</span><span class="p">[(</span><span class="n">df_cleaned</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s2">"2022-01-01"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">df_cleaned</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="s2">"2022-12-31"</span><span class="p">),]</span><span class="w">
+
+</span><span class="n">leaflet</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">addProviderTiles</span><span class="p">(</span><span class="s2">"Esri.WorldStreetMap"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">addCircles</span><span class="p">(</span><span class="w">
+        </span><span class="n">lng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">longitude</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">latitude</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">popup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Location</span><span class="p">,</span><span class="w"> </span><span class="s2">"&lt;br&gt;"</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">mag</span><span class="p">),</span><span class="w">
+        </span><span class="n">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">10</span><span class="o">^</span><span class="n">df</span><span class="o">$</span><span class="n">mag</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">fillColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">fillOpacity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="w">
+    </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="/img/posts/leaflet-map.png" alt="Earthquakes Interactive Map"></p>
+
+<p><br></p>
+<h2 id="4-create-reporting-dashboards-using-tableau">
+<a class="anchor" href="#4-create-reporting-dashboards-using-tableau" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Create Reporting Dashboards using Tableau</h2>
+<p>The following Reporting Dashboards are created in Tableau Public. I created the dashboards with fixed width option, so you will need to scroll them horizontally to view everything if you are using a small screen devices such as a laptop. I will create another post on the detailed steps taken to develop these dashboards.</p>
+<iframe seamless="" frameborder="0" src="https://public.tableau.com/views/Earthquakes_2013-2023_Dashboard/EarthquakesTrackerPage1?:embed=yes&amp;:display_count=yes&amp;:showVizHome=no" width="1090" height="900"></iframe>
+<p><br></p>
+
+
+                    
+					
+					<script src="/assets/js/codebutton.js"></script>
+
+                </div>
+                
+                <div class="post-navigation">
+                    
+                    <a href="/R-Getting-And-Cleaning-Data-With-dplyr/" class="prev">
+                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
+                    </a>
+                    
+                    
+                    <a href="/Earthquake-Data-Reporting-Dashboard/" class="next">
+                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </article> <!-- /.post -->
+    </div>
+</div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="footer-top">
+                    <h2 class="logo-title">
+                        <a href="/" class="logo-text">Wint Thandar Oo</a>
+                    </h2>
+                    <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>&copy; 2023 Wint Thandar Oo Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a></p>
+                    </div>
+                    <div class="footer-social">
+                        <ul class="list-reset">
+                            <li><a href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+                            <li><a href="/feed.xml"><i class="ion ion-logo-rss"></i> Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> <!-- /.footer -->
+    <!-- js here -->
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/jquery.waitforimages.min.js"></script>
+<script src="/assets/js/jquery.fitvids.js"></script>
+<script src="/assets/js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Getting and Cleaning Data with dplyr</title>
+    <meta name="description" content="Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links." />
+    <link rel="canonical" href="/R-Getting-And-Cleaning-Data-With-dplyr/">
+    <link rel="alternate" type="application/rss+xml" title="Wint Thandar Oo" href="/feed.xml">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <!-- Ionicons -->
+    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5Q5EYVF2FJ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-5Q5EYVF2FJ');
+	</script>
+</head>
+
+<body>
+    <header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col col-12">
+				<div class="header-box">
+					<div class="col col-3 wd-mob">
+						
+						<a href="/" class="header-avatar">
+							<img src="/img/profile_picture.jpg" class="header-avatar-img" alt="Wint Thandar Oo">
+						</a>
+						
+					</div>
+					<hr>
+					<div class="col col-9 wd-mob">
+						
+						<h1 class="header-title">Wint Thandar Oo</h1>
+						
+						
+						<h1 class="header-subtitle">Professional <span style="color:#f58506"> Portfolio </span></h1>
+						
+						
+						<p class="header-tagline">Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links.</p>
+						
+						<div class="menu-links">
+							<ul class="list-reset">
+								<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> Yangon, Myanmar</a></li>
+								<li class="item"><a class="item-link" href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+								<li class="item"><a class="item-link" href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+								<li class="item"><a class="item-link" href="/docs/Wint%20Thandar%20Oo%20Resume%202023.docx"><i class="ion ion-ios-document"></i> Resume</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> <!-- /.header -->
+    <div class="container">
+    <div class="row">
+        <div class="col col-12">
+            <div class="post-image-box">
+                <div class="post-image" style="background-image: url(/img//posts/dplyr.png)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <article class="col col-12 col-t-12 post">
+            <div class="post-content">
+                <div class="post-head">
+                    
+                    <div class="post-tag">
+                        
+                        <a href="/tags#R" class="tag">R</a>
+                        
+                        <a href="/tags#dplyr" class="tag">dplyr</a>
+                        
+                    </div>
+                    
+                    <h1 class="post-title">Getting and Cleaning Data with dplyr</h1>
+                    <div class="post-info">
+                        <div class="post-time">
+                            <span class="page__meta"><i class="ion ion-md-time"></i><span class="reading-time" title="Estimated read time">
+    
+    8 min read time
+</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <ul id="toc" class="toc__list">
+<li class="toc-entry toc-h2"><a href="#project-purpose">Project Purpose</a></li>
+<li class="toc-entry toc-h2"><a href="#github-repository-link">GitHub Repository Link</a></li>
+<li class="toc-entry toc-h2"><a href="#data-source">Data Source</a></li>
+<li class="toc-entry toc-h2"><a href="#dataset-information">Dataset Information</a></li>
+<li class="toc-entry toc-h2"><a href="#data-manipulation">Data Manipulation</a>
+<ul class="toc__sublist">
+<li class="toc-entry toc-h3"><a href="#step-1-merge-the-downloaded-training-and-test-data-set-files-to-create-one-data-set">Step 1: Merge the downloaded training and test data set files to create one data set.</a></li>
+<li class="toc-entry toc-h3"><a href="#step-2-extract-only-the-measurements-on-the-mean-and-the-standard-deviation-for-each-measurement">Step 2: Extract only the measurements on the mean and the standard deviation for each measurement.</a></li>
+<li class="toc-entry toc-h3"><a href="#step-3-use-descriptive-activity-names-to-name-the-activities-in-the-data-set">Step 3: Use descriptive activity names to name the activities in the data set.</a></li>
+<li class="toc-entry toc-h3"><a href="#step-4-appropriately-label-the-data-set-with-descriptive-variable-names">Step 4: Appropriately label the data set with descriptive variable names.</a></li>
+<li class="toc-entry toc-h3"><a href="#step-5-from-the-data-set-in-step-4-create-a-second-independent-tidy-data-set-with-the-average-of-each-variable-for-each-activity-and-each-subject">Step 5: From the data set in step 4, create a second, independent tidy data set with the average of each variable, for each activity and each subject.</a></li>
+</ul>
+</li>
+</ul><h2 id="project-purpose">
+<a class="anchor" href="#project-purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Purpose</h2>
+<p>This project was done as part of the <a href="https://www.coursera.org/learn/data-cleaning">JHU Getting and Cleaning Data Course</a>. The purpose of this project is to showcase the ability to collect, work with, and clean a data set. The goal is to prepare the tidy data that can be used for later analysis. The <code class="language-plaintext highlighter-rouge">dplyr</code> package, one of the core packages of the <code class="language-plaintext highlighter-rouge">Tidyverse</code>, is used to manipulate data in this project.<br><br></p>
+
+<h2 id="github-repository-link">
+<a class="anchor" href="#github-repository-link" aria-hidden="true"><span class="octicon octicon-link"></span></a>GitHub Repository Link</h2>
+<p>The source code and documentations for this project can be found at my <a href="https://github.com/Wint-Thandar/jhu-getting-and-cleaning-data-week4-project">GitHub repository</a>.<br><br></p>
+
+<h2 id="data-source">
+<a class="anchor" href="#data-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Source</h2>
+<p>The data used in this project is the data collected from the accelerometers from the Samsung Galaxy S smartphones. The data is downloaded from the <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">Human Activity Recognition Using Smartphones Data Set</a> webpage of the <a href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning Repository</a> website.</p>
+
+<p><strong>Dataset Download Link</strong>: <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a><br>
+<strong>Dataset Description</strong>: <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a><br><br></p>
+
+<h2 id="dataset-information">
+<a class="anchor" href="#dataset-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset Information</h2>
+<p>The dataset information below is directly quoted from the UCI webpage.
+<br></p>
+<blockquote>
+  <p>“The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.<br>
+<br>
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.<br>
+<br>
+For each record in the dataset, it is provided:<br></p>
+  <ul>
+    <li>Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.<br>
+</li>
+    <li>Triaxial Angular velocity from the gyroscope.<br>
+</li>
+    <li>A 561-feature vector with time and frequency domain variables.<br>
+</li>
+    <li>Its activity label.<br>
+</li>
+    <li>An identifier of the subject who carried out the experiment.”</li>
+  </ul>
+</blockquote>
+
+<p><br></p>
+
+<h2 id="data-manipulation">
+<a class="anchor" href="#data-manipulation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Manipulation</h2>
+<p>The data transformation for this project is done in five steps.<br>
+<strong>Step 1:</strong> Merge the downloaded training and test data set files to create one data set.<br>
+<strong>Step 2:</strong> Extract only the measurements on the mean and the standard deviation for each measurement.<br>
+<strong>Step 3:</strong> Use descriptive activity names to name the activities in the data set.<br>
+<strong>Step 4:</strong> Appropriately label the data set with descriptive variable names.<br>
+<strong>Step 5:</strong> From the data set in step 4, create a second, independent tidy data set with the average of each variable, for each activity and each subject.<br>
+<br></p>
+<h3 id="step-1-merge-the-downloaded-training-and-test-data-set-files-to-create-one-data-set">
+<a class="anchor" href="#step-1-merge-the-downloaded-training-and-test-data-set-files-to-create-one-data-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 1: Merge the downloaded training and test data set files to create one data set.</h3>
+<p>First, import <code class="language-plaintext highlighter-rouge">dplyr</code> package.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The console output will be as follow:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; Attaching package: ‘dplyr’
+
+&gt;&gt;&gt; The following objects are masked from ‘package:stats’:
+
+&gt;&gt;&gt;    filter, lag
+
+&gt;&gt;&gt; The following objects are masked from ‘package:base’:
+
+&gt;&gt;&gt;    intersect, setdiff, setequal, union
+</code></pre></div></div>
+
+<p>Then, set the file URL to be downloaded from and the file name to be saved as. The file path is not required, because the zip file is to be downloaded to the working directory.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fileUrl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"</span><span class="w">
+</span><span class="n">fileName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"project_data.zip"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Download the zip file containing the data sets by using <code class="language-plaintext highlighter-rouge">download.file</code> function. Use <code class="language-plaintext highlighter-rouge">curl</code> as the download method.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">download.file</span><span class="p">(</span><span class="n">fileUrl</span><span class="p">,</span><span class="w"> </span><span class="n">destfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileName</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"curl"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The file download will start. Wait until the download is finished. The zip file will be in the working directory after download is completed.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt;  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+&gt;&gt;&gt;                                 Dload  Upload   Total   Spent    Left  Speed
+&gt;&gt;&gt; 100 59.6M  100 59.6M    0     0  1713k      0  0:00:35  0:00:35 --:--:-- 1914k
+</code></pre></div></div>
+
+<p>Extract the downloaded zip file using <code class="language-plaintext highlighter-rouge">unzip</code> function. The extracted folder will be in the working directory.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unzip</span><span class="p">(</span><span class="n">zipfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileName</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After extracting the files, use <code class="language-plaintext highlighter-rouge">read.table</code> data import to read each of the necessary data files and create a data frame for each.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read training data files.</span><span class="w">
+</span><span class="n">training_subject</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/train/subject_train.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">x_train</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/train/X_train.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">y_train</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/train/y_train.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read test data files.</span><span class="w">
+</span><span class="n">test_subject</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/test/subject_test.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">x_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/test/X_test.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span><span class="n">y_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/test/y_test.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read features data files.</span><span class="w">
+</span><span class="n">features</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/features.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read activity labels data files.</span><span class="w">
+</span><span class="n">activity_labels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="s1">'./UCI HAR Dataset/activity_labels.txt'</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After all the files are read into data frames, set the column names to the data frame columns of training and test data frames. Doing so will help the data to merge correctly, when merging the training and test data in the next step. For both training and test data frames, set the column names for training/test subject, features, and activity by using <code class="language-plaintext highlighter-rouge">colnames</code> function. Use the data frame <code class="language-plaintext highlighter-rouge">features</code> to get all the feature names.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add column names to training data frames.</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">training_subject</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"subjectID"</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">features</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"activityID"</span><span class="w">
+
+</span><span class="c1"># Add column names to test data frames.</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">test_subject</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"subjectID"</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">features</span><span class="p">[,</span><span class="m">2</span><span class="p">]</span><span class="w">
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"activityID"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Merge above data frames into a single data set, using <code class="language-plaintext highlighter-rouge">cbind</code> data frame method to bind the columns, and <code class="language-plaintext highlighter-rouge">rbind</code> data frame method to bind the rows together.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rbind</span><span class="p">(</span><span class="w">
+    </span><span class="n">cbind</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span><span class="w"> </span><span class="n">x_train</span><span class="p">,</span><span class="w"> </span><span class="n">training_subject</span><span class="p">),</span><span class="w">
+    </span><span class="n">cbind</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">x_test</span><span class="p">,</span><span class="w"> </span><span class="n">test_subject</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+<h3 id="step-2-extract-only-the-measurements-on-the-mean-and-the-standard-deviation-for-each-measurement">
+<a class="anchor" href="#step-2-extract-only-the-measurements-on-the-mean-and-the-standard-deviation-for-each-measurement" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2: Extract only the measurements on the mean and the standard deviation for each measurement.<br>
+</h3>
+<p>To extract the mean and the standard deviation for each measurement, <code class="language-plaintext highlighter-rouge">subjectID</code> column, <code class="language-plaintext highlighter-rouge">activityID</code> column and all the columns with <code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">std</code> as part of the column name need to be extracted. Use the <code class="language-plaintext highlighter-rouge">grepl</code> function to search the column names that matches the pattern.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">required_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grepl</span><span class="p">(</span><span class="s2">"subjectID|activityID|mean|std"</span><span class="p">,</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">all_data</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>As the logical vector is returned from the previous step, the data frame can now be filtered by using that logical vector.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">all_data</span><span class="p">[,</span><span class="w"> </span><span class="n">required_col</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+<h3 id="step-3-use-descriptive-activity-names-to-name-the-activities-in-the-data-set">
+<a class="anchor" href="#step-3-use-descriptive-activity-names-to-name-the-activities-in-the-data-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3: Use descriptive activity names to name the activities in the data set.<br>
+</h3>
+<p>For step 3, use <code class="language-plaintext highlighter-rouge">activity_labels</code> data frame to replace the <code class="language-plaintext highlighter-rouge">activityID</code> with the activity type labels using <code class="language-plaintext highlighter-rouge">factor</code> function.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data</span><span class="o">$</span><span class="n">activityID</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">all_data</span><span class="o">$</span><span class="n">activityID</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_labels</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activity_labels</span><span class="p">[,</span><span class="w"> </span><span class="m">2</span><span class="p">])</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+<h3 id="step-4-appropriately-label-the-data-set-with-descriptive-variable-names">
+<a class="anchor" href="#step-4-appropriately-label-the-data-set-with-descriptive-variable-names" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 4: Appropriately label the data set with descriptive variable names.<br>
+</h3>
+<p>To change the column labels of the data set, get all column names of <code class="language-plaintext highlighter-rouge">all_data</code> data frame first by using <code class="language-plaintext highlighter-rouge">colnames</code> function.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then, remove the parentheses by using <code class="language-plaintext highlighter-rouge">gsub</code> function to replace them with <code class="language-plaintext highlighter-rouge">""</code> (no character).</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"[\\(\\)]"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Replace abbreviations with descriptive column names by using <code class="language-plaintext highlighter-rouge">gsub</code> function.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"activityID"</span><span class="p">,</span><span class="w"> </span><span class="s2">"activityType"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"^t"</span><span class="p">,</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"^f"</span><span class="p">,</span><span class="w"> </span><span class="s2">"frequency"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"Acc"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Accelerometer"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"Gyro"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Gyroscope"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"Mag"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Magnitude"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"Freq"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Frequency"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span><span class="n">all_data_col</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"BodyBody"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Body"</span><span class="p">,</span><span class="w"> </span><span class="n">all_data_col</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Apply the cleaned column names to <code class="language-plaintext highlighter-rouge">all_data</code> data frame.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colnames</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">all_data_col</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+<h3 id="step-5-from-the-data-set-in-step-4-create-a-second-independent-tidy-data-set-with-the-average-of-each-variable-for-each-activity-and-each-subject">
+<a class="anchor" href="#step-5-from-the-data-set-in-step-4-create-a-second-independent-tidy-data-set-with-the-average-of-each-variable-for-each-activity-and-each-subject" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 5: From the data set in step 4, create a second, independent tidy data set with the average of each variable, for each activity and each subject.<br>
+</h3>
+<p>Aggregate data by using <code class="language-plaintext highlighter-rouge">aggregate</code> function to get the average of each variable for each activity and each subject.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tidy_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">.</span><span class="w"> </span><span class="o">~</span><span class="n">subjectID</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">activityType</span><span class="p">,</span><span class="w"> </span><span class="n">all_data</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Sort the data by subject ID and activity type.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tidy_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_data</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">tidy_data</span><span class="o">$</span><span class="n">subjectID</span><span class="p">,</span><span class="w"> </span><span class="n">tidy_data</span><span class="o">$</span><span class="n">activityType</span><span class="p">),]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To create a text file with the tidy data, use <code class="language-plaintext highlighter-rouge">write.table</code> function to write the cleaned data frame to <code class="language-plaintext highlighter-rouge">tidy_data_set.txt</code> file. The file will be created in the working directory.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">write.table</span><span class="p">(</span><span class="n">tidy_data</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tidy_data_set.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p><br></p>
+
+
+                    
+					
+					<script src="/assets/js/codebutton.js"></script>
+
+                </div>
+                
+                <div class="post-navigation">
+                    
+                    <a href="/Python-Finding-Prime-Numbers/" class="prev">
+                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
+                    </a>
+                    
+                    
+                    <a href="/Earthquake-Data-Preparation-And-Analysis/" class="next">
+                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </article> <!-- /.post -->
+    </div>
+</div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="footer-top">
+                    <h2 class="logo-title">
+                        <a href="/" class="logo-text">Wint Thandar Oo</a>
+                    </h2>
+                    <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>&copy; 2023 Wint Thandar Oo Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a></p>
+                    </div>
+                    <div class="footer-social">
+                        <ul class="list-reset">
+                            <li><a href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+                            <li><a href="/feed.xml"><i class="ion ion-logo-rss"></i> Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> <!-- /.footer -->
+    <!-- js here -->
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/jquery.waitforimages.min.js"></script>
+<script src="/assets/js/jquery.fitvids.js"></script>
+<script src="/assets/js/common.js"></script>
+</body>
+
+</html>

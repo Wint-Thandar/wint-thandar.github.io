@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finding Prime Numbers with Python</title>
+    <meta name="description" content="Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links." />
+    <link rel="canonical" href="/Python-Finding-Prime-Numbers/">
+    <link rel="alternate" type="application/rss+xml" title="Wint Thandar Oo" href="/feed.xml">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <!-- Ionicons -->
+    <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5Q5EYVF2FJ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-5Q5EYVF2FJ');
+	</script>
+</head>
+
+<body>
+    <header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col col-12">
+				<div class="header-box">
+					<div class="col col-3 wd-mob">
+						
+						<a href="/" class="header-avatar">
+							<img src="/img/profile_picture.jpg" class="header-avatar-img" alt="Wint Thandar Oo">
+						</a>
+						
+					</div>
+					<hr>
+					<div class="col col-9 wd-mob">
+						
+						<h1 class="header-title">Wint Thandar Oo</h1>
+						
+						
+						<h1 class="header-subtitle">Professional <span style="color:#f58506"> Portfolio </span></h1>
+						
+						
+						<p class="header-tagline">Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links.</p>
+						
+						<div class="menu-links">
+							<ul class="list-reset">
+								<li class="item"><a class="item-link"><i class="ion ion-ios-pin"></i> Yangon, Myanmar</a></li>
+								<li class="item"><a class="item-link" href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+								<li class="item"><a class="item-link" href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+								<li class="item"><a class="item-link" href="/docs/Wint%20Thandar%20Oo%20Resume%202023.docx"><i class="ion ion-ios-document"></i> Resume</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> <!-- /.header -->
+    <div class="container">
+    <div class="row">
+        <div class="col col-12">
+            <div class="post-image-box">
+                <div class="post-image" style="background-image: url(/img//posts/primes.png)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <article class="col col-12 col-t-12 post">
+            <div class="post-content">
+                <div class="post-head">
+                    
+                    <div class="post-tag">
+                        
+                        <a href="/tags#Python" class="tag">Python</a>
+                        
+                        <a href="/tags#Primes" class="tag">Primes</a>
+                        
+                    </div>
+                    
+                    <h1 class="post-title">Finding Prime Numbers with Python</h1>
+                    <div class="post-info">
+                        <div class="post-time">
+                            <span class="page__meta"><i class="ion ion-md-time"></i><span class="reading-time" title="Estimated read time">
+    
+    3 min read time
+</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body">
+                    <h2 id="project-purpose">Project Purpose</h2>
+<p>The purpose of this project is to create a function in Python that can quickly find all the prime numbers below a given value.<br /><br /></p>
+
+<h2 id="git-hub-repository-link">Git Hub Repository Link.</h2>
+<p>The source code for this project can be found at my <a href="https://github.com/Wint-Thandar/python-projects/tree/main/find-prime-numbers">GitHub Repository</a><br /><br /></p>
+
+<p>In this function, <code class="language-plaintext highlighter-rouge">set</code> data type is used to store a collection of data, and to search prime numbers within 2 and the given argument <code class="language-plaintext highlighter-rouge">num</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a function with an argument to get number of upper bound.
+</span><span class="k">def</span> <span class="nf">primes_finder</span><span class="p">(</span><span class="n">num</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="s">"""
+    Finds and returns all prime numbers within 2 and the given num args.
+    If no argument is given, 10 is used as a default number.
+    
+    Args: 
+      num (int): Upper bound number value. Default is 10. 
+      
+    Returns: 
+      A list of all prime numbers within 2 and the given argument.
+    """</span>
+
+    <span class="c1"># Set the number range to be checked. 2 is set as a start number as it is 
+</span>    <span class="c1"># the smallest true Prime number. num+1 is set as a stop number as to 
+</span>    <span class="c1"># include the given num in the range.
+</span>    <span class="n">number_range</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Define empty list to append discovered primes to.
+</span>    <span class="n">primes_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Loop while there is an element in number_range.
+</span>    <span class="k">while</span> <span class="n">number_range</span><span class="p">:</span> 
+        <span class="c1"># pop method is used to remove and get the first element of the set.
+</span>        <span class="n">prime</span> <span class="o">=</span> <span class="n">number_range</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        
+        <span class="c1"># The returned element is appended to the list of primes numbers.
+</span>        <span class="n">primes_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">prime</span><span class="p">)</span>
+        
+        <span class="c1"># Assign all the numbers until num+1 that are the multiples of the 
+</span>        <span class="c1"># current prime element to a set. They are non-prime numbers.
+</span>        <span class="n">multiples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">prime</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">prime</span><span class="p">))</span>
+        
+        <span class="c1"># Use difference_update method to remove all non-primes from the 
+</span>        <span class="c1"># number_range set. 
+</span>        <span class="n">number_range</span><span class="p">.</span><span class="n">difference_update</span><span class="p">(</span><span class="n">multiples</span><span class="p">)</span>
+
+    <span class="c1"># Set number of primes that were found.
+</span>    <span class="n">prime_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">primes_list</span><span class="p">)</span>
+
+    <span class="c1"># Set largest prime.
+</span>    <span class="n">largest_prime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">primes_list</span><span class="p">)</span>
+
+    <span class="c1"># Print summary message.
+</span>    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"There are </span><span class="si">{</span><span class="n">prime_count</span><span class="si">}</span><span class="s"> prime numbers between 2 and </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s">, the largest of which is </span><span class="si">{</span><span class="n">largest_prime</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    
+    <span class="c1"># Return the list of prime numbers found.
+</span>    <span class="k">return</span> <span class="n">primes_list</span>
+</code></pre></div></div>
+<p><br />
+<br />
+Above function can be tested by calling the function with or without the argument <code class="language-plaintext highlighter-rouge">num</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primes_finder</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">There</span> <span class="n">are</span> <span class="mi">4</span> <span class="n">prime</span> <span class="n">numbers</span> <span class="n">between</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">10</span><span class="p">,</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">of</span> <span class="n">which</span> <span class="ow">is</span> <span class="mi">7</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primes_finder</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">There</span> <span class="n">are</span> <span class="mi">25</span> <span class="n">prime</span> <span class="n">numbers</span> <span class="n">between</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">100</span><span class="p">,</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">of</span> <span class="n">which</span> <span class="ow">is</span> <span class="mi">97</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">primes_finder</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">There</span> <span class="n">are</span> <span class="mi">78498</span> <span class="n">prime</span> <span class="n">numbers</span> <span class="n">between</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">1000000</span><span class="p">,</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">of</span> <span class="n">which</span> <span class="ow">is</span> <span class="mi">999983</span>
+</code></pre></div></div>
+<p><br /></p>
+
+
+                    
+					
+					<script src="/assets/js/codebutton.js"></script>
+
+                </div>
+                
+                <div class="post-navigation">
+                    
+                    <a href="#" class="prev disabled">
+                        <div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div>
+                    </a>
+                    
+                    
+                    <a href="/R-Getting-And-Cleaning-Data-With-dplyr/" class="next">
+                        <div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </article> <!-- /.post -->
+    </div>
+</div>
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="footer-top">
+                    <h2 class="logo-title">
+                        <a href="/" class="logo-text">Wint Thandar Oo</a>
+                    </h2>
+                    <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        <p>&copy; 2023 Wint Thandar Oo Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a></p>
+                    </div>
+                    <div class="footer-social">
+                        <ul class="list-reset">
+                            <li><a href="https://github.com/Wint-Thandar"><i class="ion ion-logo-github"></i> Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/wintthandaroo/"><i class="ion ion-logo-linkedin"></i> Linkedln</a></li>
+                            <li><a href="/feed.xml"><i class="ion ion-logo-rss"></i> Feed</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> <!-- /.footer -->
+    <!-- js here -->
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/jquery.waitforimages.min.js"></script>
+<script src="/assets/js/jquery.fitvids.js"></script>
+<script src="/assets/js/common.js"></script>
+</body>
+
+</html>
