@@ -1,13 +1,13 @@
 #-------------------------------
 # General Site Settings
 title: Wint Thandar Oo
-description: "Hi, I'm Wint! I'm looking for a professional role in data career.  My portfolio focuses on the course projects I am currently taking, and the projects I have undertaken to apply the topics I learned. I will be adding more projects in the future. Please visit my Github & LinkedIn pages or download my resume using the links."
+description: "Hi, I'm Wint! I'm a professional working in software technology. This is my professional portfolio showcasing a variety of projects/tutorials that I have done by following the courses or books. You can visit my Github & LinkedIn profiles or download my resume using the links."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 #-------------------------------
 # About Section
-subtitle: Data Profession <span style="color:#f58506"> Portfolio </span>
+subtitle: Professional <span style="color:#f58506"> Portfolio </span>
 location: "Yangon, Myanmar"
 resume_url: /docs/Wint%20Thandar%20Oo%20Resume%202023.docx
 avatar_image: img/profile_picture.jpg
